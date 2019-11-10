@@ -1,6 +1,6 @@
 import React from 'react';
-import HybridApp from './src/App';
+import Main from './src/App';
 
 export default function App() {
-  return <HybridApp/>;
+  return <Main />;
 }
