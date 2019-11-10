@@ -1,13 +1,33 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Bio from './components/BioPage'
-import BackgroundImage from './components/BackgroundPage';
+import Bio from './components/Bio'
+import BackgroundImage from './components/Background';
+import NavBar from './components/MyNavBar'
+import Footer from './components/Footer'
+
+const Home = () => (
+  <main id="page-wrap">
+    <BackgroundImage />
+    <Bio />
+  </main>
+);
+
+const Projects = () => (
+  <Bio />
+);
 
 export default function App() {
   return (
-    <>
-      <BackgroundImage />
-      <Bio />
-    </>
+    <Router>
+    <div id="outer-container">
+      <NavBar />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/projects" component={Projects} />
+      </Switch>
+      <Footer />
+    </div>
+  </Router>
   );
 }
