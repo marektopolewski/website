@@ -8,13 +8,14 @@ export default class Footer extends React.Component {
             <div className="footer">
                 <StickyFooter
                     normalStyles={{
-                        backgroundColor: "#999",
+                        backgroundColor: "#222",
                         padding: "20px",
                         textAlign: "center"
                     }}
                 >
-                    <Text className="unselectable">	&laquo; PROUDLY &raquo;  POWERED BY </Text>
-                    <Text className="unselectable" style={{color: '#aa0505'}}>MYSELF</Text>
+                    <Text className="unselectable" style={{color: '#FFF'}}>Proudly powered by </Text>
+                    <Text className="unselectable" style={{color: '#AA0505'}}>me </Text>
+                    <Text className="unselectable" style={{color: '#FFF'}}>:)</Text>
                 </StickyFooter>
             </div>
         );

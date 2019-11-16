@@ -11,6 +11,13 @@ body, html {
     background-size: cover;
 }
 
+.page-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
 .title {
     position: absolute;
     top: 50%;
@@ -25,6 +32,23 @@ body, html {
   -ms-user-select:none;
   -o-user-select:none;
   user-select:none;
+}
+
+img {
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  -o-user-select:none;
+  user-select:none;
+}
+
+.proj-thumbnail {
+  display: block;
+  max-width: 400px;
+  max-height: 200px;
+  width: auto;
+  height: auto;
 }
 
 /**** Burger menu ****/
@@ -79,4 +103,25 @@ body, html {
  
 .bm-overlay {
   background: rgba(0, 0, 0, 0.4);
+}
+
+/* simple - enter transition 300ms, exit 150ms */
+.fade-appear,
+.fade-enter {
+    opacity: 0;
+    z-index: 1;
+}
+.fade-appear-active,
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms linear 150ms;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+    opacity: 0;
+    transition: opacity 150ms linear;
 }

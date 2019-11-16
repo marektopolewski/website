@@ -3,6 +3,8 @@ import { View, StyleSheet } from 'react-native';
 
 import Text from './MyText';
 import Header from './MyHeader';
+
+import { Theme } from '..';
 import '../index.css';
 
 export default function BioPage() {
@@ -10,7 +12,7 @@ export default function BioPage() {
         <View style={styles.container}>
             <Header style={styles.header}>
                 Hi
-                <Header style={[styles.header, styles.dot]}>.</Header>
+                <Header style={[styles.header, styles.dot, Theme.accent]}>.</Header>
             </Header>
             <Text style={styles.text}>
                 I am a human, creator and a software engineer.
@@ -43,7 +45,6 @@ const styles = StyleSheet.create({
         marginHorizontal: '10%',
     },
     dot: {
-        color: '#aa0505',
         marginLeft: 2,
     }
 });

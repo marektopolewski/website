@@ -2,8 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu';
 import { StyleSheet } from 'react-native';
+import { animateScroll as scroll } from 'react-scroll'
+
 
 import Text from './MyText';
+import { AccentColor } from '..';
  
 export default class MyNavBar extends React.Component {
   constructor (props) {
@@ -11,15 +14,17 @@ export default class MyNavBar extends React.Component {
     this.state = {
       menuOpen: false
     };
+    this.accentColor = AccentColor;
   };
 
   handleStateChange (state) {
     this.setState({menuOpen: state.isOpen}) ;
-    this.toggleMenuButton(state); 
+    this.toggleMenuButton(state);
   };
 
   closeMenu() {
-    this.setState({menuOpen: false})
+    this.setState({menuOpen: false});
+    scroll.scrollToTop();
   };
 
   toggleMenuButton(state) {
@@ -39,16 +44,16 @@ export default class MyNavBar extends React.Component {
         isOpen={ this.state.menuOpen }
       >
         <NavLink 
-          exact to={`/`}
-          style={{color: 'white'}} activeStyle={{color: '#aa0505'}}
+          strict exact to={'/'} key={'/'}
+          style={{color: 'white'}} activeStyle={{color: this.accentColor}}
           onClick={() => this.closeMenu()}
         >
           <Text style={styles.navText} >Home</Text>
         </NavLink>
         <br />
         <NavLink 
-          exact to={`/projects`}
-          style={{color: 'white'}} activeStyle={{color: '#aa0505'}}
+          strict exact to={'/projects'} key={'/projects'}
+          style={{color: 'white'}} activeStyle={{color: this.accentColor}}
           onClick={() => this.closeMenu()}
         >
           <Text style={styles.navText} >Projects</Text>
