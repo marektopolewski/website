@@ -14,6 +14,7 @@ export default class MyNavBar extends React.Component {
     this.state = {
       menuOpen: false
     };
+    this.inactiveCol = '#444'
     this.accentColor = AccentColor;
   };
 
@@ -45,7 +46,7 @@ export default class MyNavBar extends React.Component {
       >
         <NavLink 
           strict exact to={'/'} key={'/'}
-          style={{color: 'white'}} activeStyle={{color: this.accentColor}}
+          style={{color: this.inactiveCol}} activeStyle={{color: this.accentColor}}
           onClick={() => this.closeMenu()}
         >
           <Text style={styles.navText} >Home</Text>
@@ -53,10 +54,18 @@ export default class MyNavBar extends React.Component {
         <br />
         <NavLink 
           strict exact to={'/projects'} key={'/projects'}
-          style={{color: 'white'}} activeStyle={{color: this.accentColor}}
+          style={{color: this.inactiveCol}} activeStyle={{color: this.accentColor}}
           onClick={() => this.closeMenu()}
         >
           <Text style={styles.navText} >Projects</Text>
+        </NavLink>
+        <br />
+        <NavLink 
+          strict exact to={'/contact'} key={'/contact'}
+          style={{color: this.inactiveCol}} activeStyle={{color: this.accentColor}}
+          onClick={() => this.closeMenu()}
+        >
+          <Text style={styles.navText} >Contact</Text>
         </NavLink>
       </Menu>
     );

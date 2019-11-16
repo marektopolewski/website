@@ -8,7 +8,7 @@ import { AccentColor } from '..';
 export default class ProjectItem extends React.Component {
     render() {
         return (
-            <View style={styles.row}>
+            <View style={styles.container}>
                 <View style={styles.main}>
                     <View style={styles.header}>
                         <ProjectTitle val={this.props.title} />
@@ -20,11 +20,13 @@ export default class ProjectItem extends React.Component {
                         { this.props.children }
                     </Text>
                 </View>
+                <View style={styles.img}>
                 <img
                     className="proj-thumbnail"
                     src={require(`../assets/${this.props.img.toLowerCase()}`)}
                     alt="File not found"
                 />
+                </View>
             </View>
         );
     }
@@ -82,9 +84,24 @@ const gitStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
+    container: {
+        width: '100%',
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: -20,
+    },
     main: {
-        flex: 1,
-        paddingRight: 60,
+        width: '50vw',
+        minWidth: '300px',
+        marginTop: 20,
+        marginRight: 10,
+    },
+    img: {
+        minWidth: '400px',
+        alignItems: 'center',
+        marginTop: 20,
     },
     title: {
         fontSize: 20,
@@ -96,10 +113,6 @@ const styles = StyleSheet.create({
         lineHeight: 20,
         fontSize: 15,
         textAlign: 'justify',
-    },
-    row: {
-        flex: 1,
-        flexDirection: 'row',
     },
     header: {
         flex: 1,

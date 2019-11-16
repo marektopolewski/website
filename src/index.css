@@ -1,6 +1,6 @@
 body, html {
     height: 100%;
-    background: #111;
+    background: #111 !important;
 }
 
 .bg {
@@ -49,9 +49,14 @@ img {
   max-height: 200px;
   width: auto;
   height: auto;
+  border: 3px solid transparent;
+  border-radius: 8px;
+  background: linear-gradient(-50deg, rgb(120, 120, 120), rgb(120, 15, 15));
+  background-clip: padding-box;
+  padding: 3px;
 }
 
-/**** Burger menu ****/
+/********************** Burger menu **********************/
 .bm-burger-button {
   position: fixed;
   width: 36px;
@@ -61,11 +66,11 @@ img {
 }
  
 .bm-burger-bars {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.7) !important;
 }
  
 .bm-burger-bars-hover {
-  background: rgba(50, 170, 250, 0.7);
+  background: rgba(50, 170, 250, 0.7) !important;
 }
  
 .bm-cross-button {
@@ -83,17 +88,17 @@ img {
 }
  
 .bm-menu {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8) !important;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
 }
  
 .bm-morph-shape {
-  fill: rgba(255, 255, 255, 0.8);
+  fill: rgba(255, 255, 255, 0.8) !important;
 }
  
 .bm-item-list {
-  color: #b8b7ad;
+  color: #b8b7ad !important;
   padding: 0.8em;
 }
  
@@ -102,10 +107,10 @@ img {
 }
  
 .bm-overlay {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.4) !important;
 }
 
-/* simple - enter transition 300ms, exit 150ms */
+/********************** Page transition **********************/
 .fade-appear,
 .fade-enter {
     opacity: 0;
@@ -124,4 +129,27 @@ img {
 .fade-exit.fade-exit-active {
     opacity: 0;
     transition: opacity 150ms linear;
+}
+
+/********************** Override Bootstrap CSS **********************/
+.r-color-cqee49 {
+  color: inherit;
+}
+
+.modal.show .modal-dialog {
+  max-width: 90vw;
+}
+
+.modal-header {
+  background-color: #AAA;
+}
+
+.modal-footer {
+  background-color: #AAA;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #aa0505;
+  border-color: #aa0505;
 }

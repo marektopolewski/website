@@ -9,7 +9,7 @@ export default class Home extends React.Component {
     render() {
         return (
             <>
-            <BackgroundImage size="100" pos="60">
+            <BackgroundImage size="100">
                 <Header>Mar</Header>
                 <Header style={Theme.accent}>e</Header>
                 <Header>k Topol</Header>

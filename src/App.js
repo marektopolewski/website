@@ -4,6 +4,8 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import Home from './pages/Home'
 import Projects from './pages/Projects'
+import Contact from './pages/Contact'
+
 import NavBar from './components/MyNavBar'
 import Footer from './components/Footer'
 
@@ -24,6 +26,7 @@ export default class App extends React.Component {
                   <Switch location={location}>
                     <Route exact path="/" component={Home} />
                     <Route path="/projects" component={Projects} />
+                    <Route path="/contact" component={Contact} />
                   </Switch>
                   <Footer />
                 </main>
