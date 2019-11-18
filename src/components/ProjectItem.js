@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { NavLink } from 'react-router-dom';
 
+import Breakline from './Breakline';
 import Text from './MyText';
 import { AccentColor } from '..';
 
@@ -16,6 +17,7 @@ export default class ProjectItem extends React.Component {
                             url={this.props.url}
                         />
                     </View>
+                    <Breakline size={20} />
                     <Text style={styles.desc}>
                         { this.props.children }
                     </Text>
@@ -89,12 +91,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexWrap: 'wrap',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         marginTop: -20,
     },
     main: {
         width: '50vw',
-        minWidth: '300px',
+        minWidth: 300,
+        maxWidth: 900,
         marginTop: 20,
         marginRight: 10,
     },
@@ -109,6 +112,7 @@ const styles = StyleSheet.create({
     },
     desc: {
         color: '#BBB',
+        maxWidth: 750,
         letterSpacing: 0.5,
         lineHeight: 20,
         fontSize: 15,
@@ -117,6 +121,7 @@ const styles = StyleSheet.create({
     header: {
         flex: 1,
         flexDirection: 'row',
+        maxWidth: 750,
         alignItems: 'center',
         justifyContent: 'space-between',
     }

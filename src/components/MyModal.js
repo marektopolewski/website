@@ -9,43 +9,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Text from './MyText';
 import { AccentColor } from '..';
 
-import { Document, Page, pdfjs } from 'react-pdf';
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
-
-export default class PdfModal extends React.Component {
-    calcWidth() {
-        return Math.max(window.innerWidth * 0.4, 400);
-    }
+export default class MyModal extends React.Component {    
     render() {
         return (
             <Modal 
-                show={this.props.isOpen}
+                show={this.props.show}
                 onHide={this.props.onHide}
-                dialogClassName="myModal"
             >
             <Modal.Header>
                 <View style={styles.header}>
                     <Text style={styles.title}>
-                        CV Preview
+                        {this.props.title}
                     </Text>
                 </View>
                 <View style={styles.closeIcon}>
                     <TouchableOpacity onPress={this.props.onHide}>
                         <IconContext.Provider value={{ color: AccentColor }}>
-                            <MdClose size="2em"/>
+                            <MdClose size="1.5em"/>
                         </IconContext.Provider>
                     </TouchableOpacity>
                 </View>
             </Modal.Header>
             <Modal.Body>
-                <Document
-                    file={this.props.pdf}
-                >
-                    <View style={styles.pdf}>
-                        <Page pageNumber={1} width={this.calcWidth()}/>
-                        <Page pageNumber={2} width={this.calcWidth()}/>
-                    </View>
-                </Document>
+                {this.props.children}
             </Modal.Body>
             <Modal.Footer>
                 <TouchableOpacity
@@ -67,8 +53,8 @@ const btnStyle = StyleSheet.create({
         width: 100,
         height: 35,
         borderRadius: 5,
-        backgroundColor: '#DDD',
-        shadowColor: '#999',
+        backgroundColor: '#FFF',
+        shadowColor: '#000',
         shadowOpacity: 0.6,
         shadowRadius: 4,
     },
@@ -109,6 +95,6 @@ const styles = StyleSheet.create({
     },
     closeIcon: {
         position: 'absolute', 
-        right: 10,
+        right: 20,
     }
 });

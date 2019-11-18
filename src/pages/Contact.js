@@ -1,15 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
-
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import ReactTooltip from 'react-tooltip'
-import { ToastContainer, toast, Flip } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { SocialIcon } from 'react-social-icons';
 import { GiMagnifyingGlass } from "react-icons/gi"; 
 import { TiDownload } from "react-icons/ti";
 
-import PdfModal from '../components/MyModal';
+import SendEmail from '../components/SendMail'
+import { PdfModal, DownloadPdf } from '../components/PdfModal';
 import BackgroundImage from '../components/Background'
 import Header from '../components/MyHeader';
 import Text from '../components/MyText';
@@ -27,25 +25,8 @@ const SocialLink = (props) => {
                 style={{ height: 40, width: 40 }}
                 fgColor="#fff"
                 target="_blank"
+                data-tip="View profile in new tab"
             />
-            <Breakline size={5} />
-            <Text>{props.title}</Text>
-        </View>
-    );
-}
-
-const EmailLink = (props) => {
-    return (
-        <View style={styles.itemContainer}>
-            <TouchableOpacity
-                onPress={() => props.onPress(props.url)}
-                data-tip="Copy to clipboard"
-            >
-                <Image
-                    style={{width: 40, height: 40}}
-                    source={require('../assets/gmail.png')}
-                />
-            </TouchableOpacity>
             <Breakline size={5} />
             <Text>{props.title}</Text>
         </View>
@@ -54,81 +35,66 @@ const EmailLink = (props) => {
 
 export default class Contact extends React.Component {
     state = {
-        numPages: null,
-        pageNumber: 1,
-        modalOpen: false,
+        modalOpen1: false,
+        modalOpen2: false,
     }
 
-    closeModal = () => { this.setState({ modalOpen: false }); }
-    openModal = () => { this.setState({ modalOpen: true }); }
-    
-    onDocumentLoadSuccess = ({ numPages }) => {
-        this.setState({ numPages });
-    }
+    onOpenPdf1 = () => { this.setState({ modalOpen1: true }); }
+    onOpenPdf2 = () => { this.setState({ modalOpen2: true }); }
 
-    onDownloadRequested = (url) => {
-        const link = document.createElement('a');
-        link.href = url;
-        link.target = '_blank';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-
-    onPreviewRequested = () => { this.openModal(); }
+    onClosePdf1 = () => { this.setState({ modalOpen1: false }); }
+    onClosePdf2 = () => { this.setState({ modalOpen2: false }); }
 
     render() {
         return (
             <>
             <PdfModal 
-                isOpen={this.state.modalOpen}
-                onHide={this.closeModal}
+                isOpen={this.state.modalOpen1}
+                onHide={this.onClosePdf1}
                 pdf={require("./academic_cv.pdf")}
+                pages={['1','2']}
             />
+            <PdfModal 
+                isOpen={this.state.modalOpen2}
+                onHide={this.onClosePdf2}
+                pdf={require("./industry_cv.pdf")}
+                pages={['1']}
+            />
+
             <BackgroundImage size="50">
                 <Header style={{textAlign: 'center'}}>
                     Contact
                 </Header>
             </BackgroundImage>
+
             <View style={styles.pageView}>
 
+                {/**************************** Contact Links ****************************/}
                 <View style={styles.linkgroup}>
                     <Social/>
-                    <GetInTouch onCopied={this.emailCopied} />
+                    <GetInTouch/>
                 </View>
-
                 <Breakline size={150}/>
 
+                {/***************************** CV Section *****************************/}
                 <Header style={{fontSize: 50}}>
                     CV<Header style={[Theme.accent, {fontSize: 50}]}>.</Header>
                 </Header>
                 <Breakline size={40}/>
-                <View style={styles.cv}>
-                    <Document
-                        file={require("./academic_cv.pdf")}
-                        onLoadSuccess={this.onDocumentLoadSuccess}
-                    >
-                        <View style={styles.pdf}>
-                            <Page pageNumber={this.state.pageNumber} scale={0.4}/>
-                        </View>
-                    </Document>
-                    <View style={cvStyles.buttons}>
-                        <CvButton
-                            text="Preview"
-                            action={this.onPreviewRequested}
-                        >
-                            <GiMagnifyingGlass/>
-                        </CvButton>
-                        <Breakline size={20}/>
-                        <CvButton
-                            text="Download"
-                            action={() => this.onDownloadRequested("/api/academic_cv.pdf")}
-                        >
-                            <TiDownload/>
-                        </CvButton>
-                    </View>
+                <View style={styles.cvgroup}>
+                    <Cv
+                        title="Academic"
+                        previewFoo={this.onOpenPdf1}
+                        file={"academic_cv.pdf"}
+                    />
+                    <Cv
+                        title="Professional"
+                        previewFoo={this.onOpenPdf2}
+                        file={"industry_cv.pdf"}
+                    />
                 </View>
             </View>
+            <ReactTooltip />
             </>
         );
     }
@@ -155,16 +121,6 @@ const Social = () => {
 }
 
 const GetInTouch = () => {
-    const sendMail = (email) => {
-        const link = document.createElement('a');
-        link.href = 'mailto:'+email;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        copyToClipboard(email);
-        toast.info(email, {autoClose: 3000, transition: Flip});
-        toast.info("Email copied to clipboard.", {autoClose: 2000, transition: Flip});
-    }
     return (
         <View style={{flexDirection: 'column', marginTop: 50}}>
             <Header style={{fontSize: 40}}>
@@ -172,17 +128,50 @@ const GetInTouch = () => {
             </Header>
             <Breakline size={40}/>
             <View style={styles.linksContainer}>
-                <EmailLink title="Email"
-                    url="marek.topolewski@gmail.com"
-                    onPress={sendMail}
-                />
+                <View style={styles.itemContainer}>
+                    <SendEmail />
+                </View>
                 <Breakline size={30}/>
                 <SocialLink title="GitHub"
                     url="https://github.com/marektopolewski"
                 />
             </View>
-            <ReactTooltip />
-            <ToastContainer />
+        </View>
+    );
+}
+
+const Cv = (props) => {
+    return (
+        <View style={styles.cv}>
+            <Text style={{textAlign: 'center'}}>
+                {props.title}
+                <Text style={[Theme.accent, {fontSize: 25}]}>.</Text>
+            </Text>
+            <Breakline size={10} />
+            <View>
+                <Document
+                    file={require("./" + props.file)}
+                >
+                    <View style={styles.pdf}>
+                        <Page pageNumber={1} scale={0.4}/>
+                    </View>
+                </Document>
+                <View style={cvStyles.buttons}>
+                    <CvButton
+                        text="Preview"
+                        action={props.previewFoo}
+                    >
+                        <GiMagnifyingGlass/>
+                    </CvButton>
+                    <Breakline size={10}/>
+                    <CvButton
+                        text="Download"
+                        action={() => DownloadPdf("/api/" + props.file)}
+                    >
+                        <TiDownload/>
+                    </CvButton>
+                </View>
+            </View>
         </View>
     );
 }
@@ -227,11 +216,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginHorizontal: 20,
     },
-    cv: {
+    cvgroup: {
+        marginTop: -50, // add flex wrap space
         flex: 1,
+        width: '40vw',
         flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-evenly',
+    },
+    cv: {
         justifyContent: 'center',
-        alignContent: 'center'
+        alignContent: 'center',
+        marginTop: 50,
     },
     pdf: {
         shadowColor: '#DDD',
@@ -247,17 +243,18 @@ const styles = StyleSheet.create({
 
 const cvStyles = StyleSheet.create({
     buttons: {
+        position: 'absolute',
         flex: 1,
         flexDirection: 'column',
-        marginLeft: 20,
-        marginTop: 10,
+        bottom: 5,
+        right: 5,
     },
     btn: {
         width: 120,
         height: 35,
         borderRadius: 5,
         backgroundColor: '#DDD',
-        shadowColor: '#999',
+        shadowColor: '#000',
         shadowOpacity: 0.6,
         shadowRadius: 4,
     },
@@ -274,21 +271,3 @@ const cvStyles = StyleSheet.create({
         marginRight: 5,
     },
 });
-
-function copyToClipboard (str) {
-    // Create new element
-    var el = document.createElement('textarea');
-    // Set value (string to be copied)
-    el.value = str;
-    // Set non-editable to avoid focus and move outside of view
-    el.setAttribute('readonly', '');
-    el.style = {position: 'absolute', left: '-9999px'};
-    document.body.appendChild(el);
-    // Select text inside element
-    el.select();
-    // Copy text to clipboard
-    document.execCommand('copy');
-    // Remove temporary element
-    document.body.removeChild(el);
- }
- 
