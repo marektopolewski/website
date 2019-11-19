@@ -1,21 +1,19 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import ReactTooltip from 'react-tooltip'
 
 import { SocialIcon } from 'react-social-icons';
-import { GiMagnifyingGlass } from "react-icons/gi"; 
-import { TiDownload } from "react-icons/ti";
 
 import SendEmail from '../components/SendMail'
-import { PdfModal, DownloadPdf } from '../components/PdfModal';
+import { PdfModal } from '../components/PdfModal';
+import { Thumbnail as Cv } from '../components/Cv';
 import BackgroundImage from '../components/Background'
 import Header from '../components/MyHeader';
 import Text from '../components/MyText';
 import Breakline from '../components/Breakline';
 import { Theme } from '..';
 
-import { Document, Page, pdfjs } from 'react-pdf';
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+import { } from 'react-pdf/dist/entry.webpack';
 
 const SocialLink = (props) => {
     return (
@@ -25,7 +23,7 @@ const SocialLink = (props) => {
                 style={{ height: 40, width: 40 }}
                 fgColor="#fff"
                 target="_blank"
-                data-tip="View profile in new tab"
+                data-tip="View profile in a new tab"
             />
             <Breakline size={5} />
             <Text>{props.title}</Text>
@@ -37,27 +35,60 @@ export default class Contact extends React.Component {
     state = {
         modalOpen1: false,
         modalOpen2: false,
+        loadedCnt: 0,
     }
 
-    onOpenPdf1 = () => { this.setState({ modalOpen1: true }); }
-    onOpenPdf2 = () => { this.setState({ modalOpen2: true }); }
+    onLoadedPdf = () => {
+        this.setState({ loadedCnt: this.state.loadedCnt+1 });
+        if (this.state.loadedCnt+1 >= 2) {
+            this.props.loading(false);
+        }
+    }
 
-    onClosePdf1 = () => { this.setState({ modalOpen1: false }); }
-    onClosePdf2 = () => { this.setState({ modalOpen2: false }); }
+    onOpenPdf1 = () => {
+        this.onPdfLoadStart();
+        this.setState({ modalOpen1: true });
+    }
+    onOpenPdf2 = () => {
+        this.onPdfLoadStart();
+        this.setState({ modalOpen2: true });
+    }
+
+    onCloseModal1 = () => {
+        this.setState({ modalOpen1: false });
+        this.onPdfLoadDone();
+    }
+    onCloseModal2 = () => {
+        this.setState({ modalOpen2: false });
+        this.onPdfLoadDone();
+    }
+
+    onPdfLoadStart = () => {
+        this.props.delay(1000);
+        this.props.loading(true);
+        console.log("loading...");
+    }
+    onPdfLoadDone = () => {
+        this.props.delay(undefined);
+        this.props.loading(false);
+        console.log("..done");
+    }
 
     render() {
         return (
             <>
             <PdfModal 
                 isOpen={this.state.modalOpen1}
-                onHide={this.onClosePdf1}
-                pdf={require("./academic_cv.pdf")}
+                onHide={this.onCloseModal1}
+                onPdfLoaded={this.onPdfLoadDone}
+                pdf={require("./pdfs/academic_cv.pdf")}
                 pages={['1','2']}
             />
             <PdfModal 
                 isOpen={this.state.modalOpen2}
-                onHide={this.onClosePdf2}
-                pdf={require("./industry_cv.pdf")}
+                onHide={this.onCloseModal2}
+                onPdfLoaded={this.onPdfLoadDone}
+                pdf={require("./pdfs/industry_cv.pdf")}
                 pages={['1']}
             />
 
@@ -67,7 +98,7 @@ export default class Contact extends React.Component {
                 </Header>
             </BackgroundImage>
 
-            <View style={styles.pageView}>
+            <View style={[styles.pageView, Theme.content]}>
 
                 {/**************************** Contact Links ****************************/}
                 <View style={styles.linkgroup}>
@@ -85,12 +116,14 @@ export default class Contact extends React.Component {
                     <Cv
                         title="Academic"
                         previewFoo={this.onOpenPdf1}
-                        file={"academic_cv.pdf"}
+                        file={"academic.png"}
+                        onSuccess={() => this.onLoadedPdf()}
                     />
                     <Cv
                         title="Professional"
                         previewFoo={this.onOpenPdf2}
-                        file={"industry_cv.pdf"}
+                        file={"professional.png"}
+                        onSuccess={() => this.onLoadedPdf()}
                     />
                 </View>
             </View>
@@ -140,56 +173,6 @@ const GetInTouch = () => {
     );
 }
 
-const Cv = (props) => {
-    return (
-        <View style={styles.cv}>
-            <Text style={{textAlign: 'center'}}>
-                {props.title}
-                <Text style={[Theme.accent, {fontSize: 25}]}>.</Text>
-            </Text>
-            <Breakline size={10} />
-            <View>
-                <Document
-                    file={require("./" + props.file)}
-                >
-                    <View style={styles.pdf}>
-                        <Page pageNumber={1} scale={0.4}/>
-                    </View>
-                </Document>
-                <View style={cvStyles.buttons}>
-                    <CvButton
-                        text="Preview"
-                        action={props.previewFoo}
-                    >
-                        <GiMagnifyingGlass/>
-                    </CvButton>
-                    <Breakline size={10}/>
-                    <CvButton
-                        text="Download"
-                        action={() => DownloadPdf("/api/" + props.file)}
-                    >
-                        <TiDownload/>
-                    </CvButton>
-                </View>
-            </View>
-        </View>
-    );
-}
-
-const CvButton = (props) => {
-    return (
-        <TouchableOpacity
-            onPress={props.action}
-            style={cvStyles.btn}
-        >
-            <View style={cvStyles.btnLabel}>
-                <Text style={cvStyles.btnText}>{props.text}</Text>
-                {props.children}
-            </View>
-        </TouchableOpacity>
-    );
-};
-
 const styles = StyleSheet.create({
     pageView: {
         paddingVertical: '20vh',
@@ -224,11 +207,6 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: 'space-evenly',
     },
-    cv: {
-        justifyContent: 'center',
-        alignContent: 'center',
-        marginTop: 50,
-    },
     pdf: {
         shadowColor: '#DDD',
         shadowOpacity: 0.4,
@@ -239,35 +217,4 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginLeft: 4,
     }
-});
-
-const cvStyles = StyleSheet.create({
-    buttons: {
-        position: 'absolute',
-        flex: 1,
-        flexDirection: 'column',
-        bottom: 5,
-        right: 5,
-    },
-    btn: {
-        width: 120,
-        height: 35,
-        borderRadius: 5,
-        backgroundColor: '#DDD',
-        shadowColor: '#000',
-        shadowOpacity: 0.6,
-        shadowRadius: 4,
-    },
-    btnLabel: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    btnText: {
-        fontFamily: '"Trebuchet MS", Helvetica, sans-serif',
-        fontSize: 12,
-        color: '#000',
-        marginRight: 5,
-    },
 });

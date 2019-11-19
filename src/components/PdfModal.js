@@ -3,8 +3,7 @@ import { View, StyleSheet } from 'react-native';
 
 import Modal from './MyModal';
 
-import { Document, Page, pdfjs } from 'react-pdf';
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+import { Document, Page } from 'react-pdf';
 
 export function DownloadPdf(url) {
     const link = document.createElement('a');
@@ -32,7 +31,13 @@ export class PdfModal extends React.Component {
                 >
                     <View style={styles.pdf}>
                         {this.props.pages.map((val,id) => {
-                            return <Page key={id} pageNumber={parseInt(val)} width={this.calcWidth()}/>;
+                            return (
+                                <Page
+                                    key={id}
+                                    pageNumber={parseInt(val)}
+                                    width={this.calcWidth()}
+                                    onLoadSuccess={this.props.onPdfLoaded}
+                                />);
                         })}
                     </View>
                 </Document>

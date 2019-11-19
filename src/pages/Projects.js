@@ -16,7 +16,7 @@ export default class Home extends React.Component {
                     Proj<Header style={Theme.accent}>e</Header>cts
                 </Header>
             </BackgroundImage>
-            <View style={styles.pageView}>
+            <View style={[styles.pageView, Theme.content]}>
                 <ProjectItem 
                     title="Trap States in Monte Carlo Tree Search"
                     img="thesis.png"

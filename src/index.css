@@ -5,10 +5,12 @@ body, html {
 
 .bg {
     background-image: url("IMG_7328.JPG");
-    height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: fixed;
 }
 
 .page-wrap {
@@ -18,28 +20,12 @@ body, html {
   right: 0;
 }
 
-.unselectable {
-  -webkit-user-select:none;
-  -khtml-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
-  -o-user-select:none;
-  user-select:none;
-}
-
-img {
-  -webkit-user-select:none;
-  -khtml-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
-  -o-user-select:none;
-  user-select:none;
-}
-
 .proj-thumbnail {
   display: block;
   max-width: 400px;
   max-height: 200px;
+  min-width: 100px;
+  min-height: 100px;
   width: auto;
   height: auto;
   border: 3px solid transparent;
@@ -47,6 +33,14 @@ img {
   background: linear-gradient(-50deg, rgb(120, 120, 120), rgb(120, 15, 15));
   background-clip: padding-box;
   padding: 3px;
+}
+
+.cv-thumbnail {
+  display: block;
+  max-width: 300px;
+  min-width: 165px;
+  width: 14vw;
+  height: auto;
 }
 
 /********************** Burger menu **********************/
@@ -103,6 +97,18 @@ img {
   background: rgba(0, 0, 0, 0.4) !important;
 }
 
+/***************** unselectable components go here *****************/
+.unselectable,
+img,
+.overlay > div:first-of-type > div:first-of-type {
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  -o-user-select:none;
+  user-select:none;
+}
+
 /********************** Page transition **********************/
 .fade-appear,
 .fade-enter {
@@ -125,8 +131,30 @@ img {
 }
 
 /********************** Override Bootstrap CSS **********************/
+.overlay > div:first-of-type > div:first-of-type {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.overlay > div:first-of-type > div:nth-of-type(2) {
+  display: unset !important;
+}
+
+.fmNlUH {
+  position: fixed;
+}
+
+/********************** Override Bootstrap CSS **********************/
 .r-color-cqee49 {
   color: inherit;
+}
+
+.modal {
+  z-index: 501 !important;
+}
+
+.modal-backdrop {
+  z-index: 500 !important;
 }
 
 .modal.show .modal-dialog {

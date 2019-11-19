@@ -13,10 +13,12 @@ export default class BackgroundImage extends React.Component {
 
   render() {
     return (
-        <View className="bg" style={{height: this.height}}>
-          <View className="title" style={styles.title}>
-            {this.props.children}
-          </View>
+        <View style={{ marginBottom: this.height }}>
+          <div className="bg" style={{height: this.height}}>
+            <View className="title" style={styles.title}>
+              {this.props.children}
+            </View>
+          </div>
         </View>
     );
   }
@@ -25,8 +27,9 @@ export default class BackgroundImage extends React.Component {
 const styles = StyleSheet.create({
   title: {
     flex: 1,
+    height: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 })

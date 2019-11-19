@@ -16,26 +16,31 @@ export default class BioPage extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Header ref='cntRef' style={styles.header}>
-                    Hi
-                    <Header style={[styles.header, styles.dot, Theme.accent]}>.</Header>
-                </Header>
-                <Text style={styles.text}>
-                    I am a human, creator and a software engineer.
-                    I am a human, creator and a software engineer.
-                    I am a human, creator and a software engineer.
-                    I am a human, creator and a software engineer.
-                    I am a human, creator and a software engineer.
-                    I am a human, creator and a software engineer.
-                    I am a human, creator and a software engineer.    
-                </Text>
+            <View style={[this.props.style, styles.pageView]}>
+                <View style={styles.container}>
+                    <Header ref='cntRef' style={styles.header}>
+                        Hi
+                        <Header style={[styles.header, styles.dot, Theme.accent]}>.</Header>
+                    </Header>
+                    <Text style={styles.text}>
+                        I am a human, creator and a software engineer.
+                        I am a human, creator and a software engineer.
+                        I am a human, creator and a software engineer.
+                        I am a human, creator and a software engineer.
+                        I am a human, creator and a software engineer.
+                        I am a human, creator and a software engineer.
+                        I am a human, creator and a software engineer.    
+                    </Text>
+                </View>
             </View>
         );
     };
 }
 
 const styles = StyleSheet.create({
+    pageView: {
+        width: '100%'
+    },
     container: {
         flex: 1,
         maxWidth: 800,

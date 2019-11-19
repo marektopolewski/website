@@ -1,5 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, Animated, Easing, Text } from 'react-native';
+import { View } from 'react-native';
+import { toast, Flip } from 'react-toastify';
+import { FaAngleDoubleDown } from "react-icons/fa";
+import { css } from 'glamor';
 
 import Bio from '../components/Bio'
 import Header from '../components/MyHeader';
@@ -9,8 +12,13 @@ import { Theme } from '..';
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {cntY: window.innerHeight * 2};
+        this.state = {
+            cntY: window.innerHeight * 2,
+            showTip: false,
+        };
     }
+
+    componentDidMount() { this.setState({showTip: true }); }
 
     render() {
         return (
@@ -23,90 +31,46 @@ export default class Home extends React.Component {
                     <Header style={Theme.accent}>e</Header>
                     <Header>wski</Header>
                 </BackgroundImage>
-                <ScrollDownTip contentY={this.state.cntY} />
+                <ScrollDownTip show={this.state.showTip} cntY={this.state.cntY} />
             </View>
-            <Bio cb={(y) => this.setState({cntY: y})} />
+            <Bio
+                style={Theme.content}
+                cb={(y) => this.setState({cntY: y})}
+            />
             </>
         );
     }
 }
 
 const ScrollDownTip = (props) => {
-    const state = {
-        fadeAnim: new Animated.Value(0),
-        moveAnim: new Animated.Value(0),
-    };
-
-    function fade(endValue, time) {
-        return Animated.timing(
-            state.fadeAnim, 
-            { toValue: endValue, duration: time }
-        );
-    }
-    function move(endValue, time) {
-        return Animated.timing(
-            state.moveAnim,
-            { easing: Easing.back(), toValue: endValue, duration: time }
-        );
-    }
-
-    let animation = Animated.sequence([
-        Animated.delay(1000), fade(1, 700),
-        Animated.delay(1000), move(0.4, 500), move(0, 500),
-        Animated.delay(200), move(0.4, 500), move(0, 500),
-        Animated.delay(2000),
-        Animated.parallel(
-            [ fade(0, 1000), move(-1, 1000) ],
-        ),
-    ]);
-
-    let initY = window.scrollY + window.innerHeight;
-    console.log(props.contentY);
-    if (initY < 1.1*props.contentY) {
-        window.addEventListener('scroll', () => {
-            console.log(window.scrollY + window.innerHeight);
-            if (window.scrollY + window.innerHeight > 1.1 * props.contentY) {
-                animation.stop();
-                fade(0,400).start();
-            }
-        }, true);
-        animation.start();
-    }
-
-    const anim = StyleSheet.create({
-        styles: {
-            opacity: state.fadeAnim,
-            transform: [{
-                translateY: state.moveAnim.interpolate({
-                    inputRange: [-1, 1],
-                    outputRange: [50, -50]
+    let Tip = () => { return(
+        <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+            <FaAngleDoubleDown style={{marginRight: 10}} />
+            <>Scroll down to read more..</>
+        </View>
+    ); }
+    if (props.show)
+    {
+        let windowY = () => { return window.scrollY + window.innerHeight; };
+        let contentY =  () => { return 1.1 * props.cntY; };
+        if (windowY() < contentY()) {
+            let toastId = toast(<Tip />, {
+                position: "bottom-center",
+                autoClose: 4000,
+                transition: Flip,
+                hideProgressBar: true,
+                draggable: false,
+                className: css({
+                    background: "#111 !important",
+                    border: "#AAA 0.5px solid",
                 }),
-            }],
-        },
-    });
-
-    return (
-        <Animated.View style={[styles.div, anim.styles]}>
-            <Text style={styles.text}>
-                Scroll down to read more..
-            </Text>
-        </Animated.View>
-    );
-}
-
-const styles = StyleSheet.create({
-    div: {
-        position: 'absolute',
-        left: 0, right: 0,
-        marginLeft: 'auto', marginRight: 'auto',
-        bottom: 10,
-        width: 300, height: 50,
-        backgroundColor: '#FFF',
-        borderRadius: 10,
-        shadowColor: '#000', shadowRadius: 10,
-        justifyContent: 'center', alignItems: 'center',
-    },
-    text: {
-        fontSize: 15,
+            });
+            window.addEventListener('scroll', () => {
+                if (windowY() > contentY()) {
+                    toast.update(toastId, { render: "", type:toast.TYPE.INFO, autoClose:1 });
+                }
+            }, true);
+        }
     }
-})
+    return <></>;
+}
