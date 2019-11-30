@@ -20,6 +20,17 @@ body, html {
   right: 0;
 }
 
+.bio-img {
+  display: block;
+  max-width: 180px;
+  max-height: 500px;
+  width: auto;
+  height: auto;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.2), 0 3px 10px 0 rgba(255, 255, 255, 0.19);
+}
+
 .proj-thumbnail {
   display: block;
   max-width: 400px;
