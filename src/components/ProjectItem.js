@@ -17,10 +17,12 @@ export default class ProjectItem extends React.Component {
                             url={this.props.url}
                         />
                     </View>
-                    <Breakline size={20} />
+                    <Breakline size={10} />
                     <Text style={styles.desc}>
                         { this.props.children }
                     </Text>
+                    <Breakline size={10} />
+                    <Hashtags tags={this.props.tags} />
                 </View>
                 <View style={styles.img}>
                 <img
@@ -36,7 +38,9 @@ export default class ProjectItem extends React.Component {
 
 const ProjectTitle = (props) => {
     return (
-        <NavLink style={{color: AccentColor, pointerEvents: 'none'}} to={``}>
+        <NavLink
+            style={{color:AccentColor, pointerEvents:'none', position:'relative', bottom:-10}}
+            to={``}>
             <Text style={styles.title}>
                 {props.val}
             </Text>
@@ -60,6 +64,50 @@ const GitButton = (props) => {
         </TouchableOpacity>
     );
 };
+
+const Hashtags = (props) => {
+    if (props.tags === undefined)
+        return (<></>);
+    return (
+        <View style={tagStyles.container}>
+            <Text style={tagStyles.text}>
+                <Text style={[tagStyles.text, tagStyles.user]}>
+                    {"hash@tags:"}
+                </Text>
+                <Text style={[tagStyles.text, tagStyles.tilda]}>
+                    {"~"}
+                </Text>
+                <Text style={[tagStyles.text]}>
+                    {"$"}
+                </Text>
+                <Text style={[tagStyles.text, tagStyles.tags]}>
+                { props.tags.map(tag => {return " " + tag.toString()}) }
+                </Text>
+            </Text>
+        </View>
+    );
+};
+
+const tagStyles = StyleSheet.create({
+    container: {
+        maxWidth: 750,
+        flexDirection: 'row-reverse',
+    },
+    text: {
+        fontFamily: 'monospace',
+        color: '#DDD',
+        fontSize: 13,
+    },
+    user: {
+        color: 'rgb(153, 209, 89)',
+    },
+    tilda: {
+        color: 'rgb(120, 150, 180)',
+    },
+    tags: {
+        fontSize: 15,
+    }
+});
 
 const gitStyles = StyleSheet.create({
     button: {
