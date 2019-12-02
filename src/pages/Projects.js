@@ -19,6 +19,7 @@ export default class Home extends React.Component {
             <View style={[styles.pageView, Theme.content]}>
                 <ProjectItem
                     title="React Native with Support for Web"
+                    tags={["React_Native", "Web", "JS", "CSS"]}
                     img="react.png"
                     url="https://github.com/marektopolewski/website"
                 >
@@ -33,6 +34,7 @@ export default class Home extends React.Component {
                 <Breakline size={150}/>
                 <ProjectItem 
                     title="Trap States in Monte Carlo Tree Search"
+                    tags={["AI", "Game_Theory", "Monte_Carlo", "Java", "C++"]}
                     img="thesis.png"
                     url="https://github.com/marektopolewski/Trap-States-MCTS"
                 >
@@ -49,6 +51,7 @@ export default class Home extends React.Component {
                 <Breakline size={150}/>
                 <ProjectItem
                     title="XOR Problem in Neural Networks"
+                    tags={["Neural_Network", "MLP", "Python"]}
                     img="xor.png"
                     url="https://github.com/marektopolewski/mlp-xor"
                 >
@@ -64,6 +67,7 @@ export default class Home extends React.Component {
                 <Breakline size={150}/>
                 <ProjectItem
                     title="User Interface Evaluation and Design"
+                    tags={["UX", "Social_Informatics", "Design", "ReactJS"]}
                     img="eveg.png"
                     url="https://github.com/marektopolewski/evegPublicVersion"
                 >
@@ -79,6 +83,7 @@ export default class Home extends React.Component {
                 <Breakline size={150}/>
                 <ProjectItem
                     title="PLAsTiCC Kaggle Competition"
+                    tags={["Machine_Learning", "Keras_CNN", "Random_Forest", "Python"]}
                     img="kaggle.png"
                     url="https://github.com/marektopolewski/plasticc-kaggle"
                 >
@@ -93,6 +98,7 @@ export default class Home extends React.Component {
                 <Breakline size={150}/>
                 <ProjectItem
                     title="Hadoop &amp; Hive: Text Analytics"
+                    tags={["Databases", "MapReduce", "Hadoop", "Hive", "Java"]}
                     img="adb.png"
                     url="https://github.com/marektopolewski/hadoop-hive"
                 >
@@ -112,6 +118,7 @@ export default class Home extends React.Component {
                 <Breakline size={150}/>
                 <ProjectItem
                     title="Fictional Space Probe Data Classification"
+                    tags={["Machine_Learning", "Sklearn", "Regularisers", "Python"]}
                     img="plants-animals.png"
                     url="https://github.com/marektopolewski/probe-prediction"
                 >
