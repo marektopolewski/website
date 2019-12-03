@@ -17,7 +17,7 @@ export default class ProjectItem extends React.Component {
                             url={this.props.url}
                         />
                     </View>
-                    <Breakline size={10} />
+                    <Breakline size={20} />
                     <Text style={styles.desc}>
                         { this.props.children }
                     </Text>

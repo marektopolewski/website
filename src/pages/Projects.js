@@ -130,6 +130,21 @@ export default class Home extends React.Component {
                     accurate of which will be discussed in the report along with feature engineering techniques 
                     employed.
                 </ProjectItem>
+                <Breakline size={150}/>
+                <ProjectItem
+                    title="Mobile Robotics: Lego NTX"
+                    tags={["Robotics", "Mapping", "Motion_Planning", "lejOS", "Java"]}
+                    img="lego-ntx.png"
+                    url="https://github.com/marektopolewski/robotics-lego-ntx"
+                >
+                    Mobile robots are expected to move freely within the environment and interpret it which 
+                    significantly increases their potential and efficiency. To navigate safely, they are required 
+                    to recognize landmarks and objects as well as avoid obstacles.<br/>
+                    <Breakline size={25}/>
+                    This project provides an implementation of an autonomous mobile robot capable of mapping its
+                    environment comprised of a static grid with random obastacles. It should be able to navigate it 
+                    and find the shortest path between selected points by solely relaying on its sensory data. 
+                </ProjectItem>
             </View>
             </>
         );
