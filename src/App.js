@@ -38,11 +38,12 @@ export default class App extends React.Component {
                   <main className="page-wrap">
                     <Switch location={location}>
                       <Route exact path="/" component={Home} />
-                      <Route path="/projects" component={Projects} />
+                      <Route exact path="/projects" component={Projects} />
                       <Route exact path="/contact" render={(props) =>
                         <Contact {...props} loading={this.setLoading} delay={this.setDelay}/>
                       }/>
                       <Route exact path="/contact/send" component={Email} />
+                      <Route path="/*" component={Home} />
                     </Switch>
                     <Footer />
                     <ToastContainer />

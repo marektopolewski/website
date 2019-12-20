@@ -14,7 +14,7 @@ export default class MyNavBar extends React.Component {
     this.state = {
       menuOpen: false
     };
-    this.inactiveCol = '#444'
+    this.inactiveCol = '#AAA'
     this.accentColor = AccentColor;
   };
 
@@ -36,6 +36,8 @@ export default class MyNavBar extends React.Component {
     }
   };
 
+  isActive = (path, match, location) => !!(match || path === location.pathname);
+
   render () {
     return (
       <Menu id="menu-nav-bar"
@@ -48,24 +50,27 @@ export default class MyNavBar extends React.Component {
           strict exact to={'/'} key={'/'}
           style={{color: this.inactiveCol}} activeStyle={{color: this.accentColor}}
           onClick={() => this.closeMenu()}
+          isActive={this.isActive.bind(this, '/')}
         >
-          <Text style={styles.navText} >Home</Text>
+          <Text style={styles.navText}>Home</Text>
         </NavLink>
         <br />
         <NavLink 
           strict exact to={'/projects'} key={'/projects'}
           style={{color: this.inactiveCol}} activeStyle={{color: this.accentColor}}
           onClick={() => this.closeMenu()}
+          isActive={this.isActive.bind(this, '/projects')}
         >
-          <Text style={styles.navText} >Projects</Text>
+          <Text style={styles.navText}>Projects</Text>
         </NavLink>
         <br />
         <NavLink 
           strict exact to={'/contact'} key={'/contact'}
           style={{color: this.inactiveCol}} activeStyle={{color: this.accentColor}}
           onClick={() => this.closeMenu()}
+          isActive={this.isActive.bind(this, '/contact')}
         >
-          <Text style={styles.navText} >Contact</Text>
+          <Text style={styles.navText}>Contact</Text>
         </NavLink>
       </Menu>
     );
@@ -74,6 +79,6 @@ export default class MyNavBar extends React.Component {
 
 const styles = StyleSheet.create({
   navText: {
-    color: 'black',
+    color: 'inherit',
   },
 });

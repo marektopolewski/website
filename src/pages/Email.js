@@ -45,7 +45,7 @@ export default class EmailPage extends React.Component {
         return (
             <>
             <BigCross onClick={this.confirmHide}/>
-            <BackgroundImage size="20">
+            <BackgroundImage size="30">
                 <View style={{flexDirection:'column'}}>
                     <View>
                         <Header style={{textAlign:'center', fontSize:30 }}>
@@ -197,7 +197,7 @@ const BigCross = (props) => {
 const styles = StyleSheet.create({
     pageView: {
         paddingTop: '5vh',
-        paddingBottom: '10vh',
+        paddingBottom: '20vh',
         paddingHorizontal: '20vw',
     },
     footerBtns: {

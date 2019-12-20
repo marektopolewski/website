@@ -92,7 +92,7 @@ body, html {
 }
  
 .bm-cross {
-  background: black;
+  background: white;
 }
  
 .bm-menu-wrap {
@@ -101,13 +101,13 @@ body, html {
 }
  
 .bm-menu {
-  background: rgba(255, 255, 255, 0.8) !important;
+  background: rgba(0, 0, 0, 0.8) !important;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
 }
  
 .bm-morph-shape {
-  fill: rgba(255, 255, 255, 0.8) !important;
+  fill: rgba(0, 0, 0, 0.8) !important;
 }
  
 .bm-item-list {
@@ -263,6 +263,11 @@ img,
   background-color: #aa0505;
   border-color: #aa0505;
 }
+
+.css-901oao.r-cqee49.r-adyw6z {
+  color: inherit;
+}
+
 /********************** Override Bootstrap CSS **********************/
 .input-long {
   min-width: 300px !important;
