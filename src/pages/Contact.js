@@ -117,7 +117,7 @@ export default class Contact extends React.Component {
                     <Cv
                         title="Academic"
                         previewFoo={this.onOpenPdf1}
-                        file={"academic.png"}
+                        file={"academic.jpg"}
                         onSuccess={() => this.onLoadedPdf()}
                     />
                     </View>
@@ -125,7 +125,7 @@ export default class Contact extends React.Component {
                     <Cv
                         title="Professional"
                         previewFoo={this.onOpenPdf2}
-                        file={"professional.png"}
+                        file={"professional.jpg"}
                         onSuccess={() => this.onLoadedPdf()}
                     />
                     </View>
