@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import Home from './pages/Home'
 import Projects from './pages/Projects'
 import Contact from './pages/Contact'
+import Email from './pages/Email'
 
 import NavBar from './components/MyNavBar'
 import Footer from './components/Footer'
@@ -38,9 +39,10 @@ export default class App extends React.Component {
                     <Switch location={location}>
                       <Route exact path="/" component={Home} />
                       <Route path="/projects" component={Projects} />
-                      <Route path="/contact" render={(props) =>
+                      <Route exact path="/contact" render={(props) =>
                         <Contact {...props} loading={this.setLoading} delay={this.setDelay}/>
                       }/>
+                      <Route exact path="/contact/send" component={Email} />
                     </Switch>
                     <Footer />
                     <ToastContainer />

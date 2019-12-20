@@ -4,7 +4,7 @@ import ReactTooltip from 'react-tooltip'
 
 import { SocialIcon } from 'react-social-icons';
 
-import SendEmail from '../components/SendMail'
+import EmailButton from '../components/SendEmail'
 import { PdfModal } from '../components/PdfModal';
 import { Thumbnail as Cv } from '../components/Cv';
 import BackgroundImage from '../components/Background'
@@ -113,18 +113,22 @@ export default class Contact extends React.Component {
                 </Header>
                 <Breakline size={40}/>
                 <View style={styles.cvgroup}>
+                    <View style={{marginLeft: 20}}>
                     <Cv
                         title="Academic"
                         previewFoo={this.onOpenPdf1}
                         file={"academic.png"}
                         onSuccess={() => this.onLoadedPdf()}
                     />
+                    </View>
+                    <View style={{marginLeft: 20}}>
                     <Cv
                         title="Professional"
                         previewFoo={this.onOpenPdf2}
                         file={"professional.png"}
                         onSuccess={() => this.onLoadedPdf()}
                     />
+                    </View>
                 </View>
             </View>
             <ReactTooltip />
@@ -162,12 +166,8 @@ const GetInTouch = () => {
             <Breakline size={40}/>
             <View style={styles.linksContainer}>
                 <View style={styles.itemContainer}>
-                    <SendEmail />
+                    <EmailButton />
                 </View>
-                <Breakline size={30}/>
-                <SocialLink title="GitHub"
-                    url="https://github.com/marektopolewski"
-                />
             </View>
         </View>
     );
@@ -192,15 +192,17 @@ const styles = StyleSheet.create({
     linksContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
+        marginLeft: -55,
     },
     itemContainer: {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        marginHorizontal: 20,
+        marginLeft: 40,
     },
     cvgroup: {
         marginTop: -50, // add flex wrap space
+        marginLeft: -20,
         flex: 1,
         width: '40vw',
         flexDirection: 'row',

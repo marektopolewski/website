@@ -39,12 +39,6 @@ body, html {
   min-height: 100px;
   width: auto;
   height: auto;
-  /*
-  border: 3px solid transparent;
-  border-radius: 8px;
-  background: linear-gradient(-50deg, rgb(120, 120, 120), rgb(120, 15, 15));
-  background-clip: padding-box;
-  padding: 3px;*/
   border: #111 1.5px solid;
   border-radius: 5px;
   box-shadow: 0 2px 6px rgba(208,208,208,0.12), 0 2px 4px rgba(208,208,208,0.24);
@@ -71,12 +65,23 @@ body, html {
   height: 30px;
   left: 36px;
   top: 36px;
+  z-index: 500 !important;
 }
  
 .bm-burger-bars {
   background: rgba(255, 255, 255, 0.7) !important;
 }
- 
+
+.bm-burger-bars.rotate1 {
+  background: #aa0505 !important;
+  -webkit-transform: rotate(-45deg);
+}
+
+.bm-burger-bars.rotate2 {
+  background: #aa0505 !important;
+  -webkit-transform: rotate(45deg);
+}
+
 .bm-burger-bars-hover {
   background: rgba(50, 170, 250, 0.7) !important;
 }
@@ -151,6 +156,69 @@ img,
     transition: opacity 150ms linear;
 }
 
+/********************** Custome Checkbox **********************/
+.customcheck {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #DDD !important;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.customcheck input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: -3px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #222;
+  border-radius: 5px;
+}
+
+.customcheck:hover input ~ .checkmark {
+  background-color: #444;
+}
+
+.customcheck input:checked ~ .checkmark {
+  background-color: #02cf32;
+  border-radius: 5px;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.customcheck input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.customcheck .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 7px;
+  height: 14px;
+  border: solid #000;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 /********************** Override Bootstrap CSS **********************/
 .overlay > div:first-of-type > div:first-of-type {
   position: fixed;
@@ -194,4 +262,54 @@ img,
   color: #fff;
   background-color: #aa0505;
   border-color: #aa0505;
+}
+/********************** Override Bootstrap CSS **********************/
+.input-long {
+  min-width: 300px !important;
+}
+
+.input-group-text {
+  min-width: 110px;
+  font-size: 13px !important;
+  color: #AAA !important;
+  background-color: #222 !important;
+  border: 1px solid #DDD !important;
+}
+
+.append-form {
+  min-width: 0;
+  font-size: 12px !important;
+  justify-content: center;
+}
+
+.h5.mb-4.bright {
+  color: #FFF !important;
+  margin-top: 50px;
+}
+
+.input-group {
+  min-width: 300px;
+}
+
+.input-group.wide {
+  min-width: 50%;
+}
+
+.col-md-3.send-confirm {
+  min-width: 230px;
+}
+
+.form-control {
+  font-size: 13px !important;
+  background-color: #111 !important;
+  color: #FFF !important;
+}
+
+.form-group.text-area {
+  padding-right: 0px !important;
+  padding-left:  0px !important;
+}
+
+.form-row.mb-4.nomargin {
+  margin-top: -20px;
 }
