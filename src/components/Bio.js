@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { View, StyleSheet } from 'react-native';
 
 import Text from './MyText';
@@ -10,10 +9,6 @@ import { Theme } from '..';
 import '../index.css';
 
 export default class BioPage extends React.Component {
-    componentDidMount() {
-        let y = ReactDOM.findDOMNode(this.refs['cntRef']).getBoundingClientRect().y;
-        this.props.cb(y)
-    }
 
     render() {
         return (

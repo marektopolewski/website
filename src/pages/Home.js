@@ -1,8 +1,8 @@
 import React from 'react';
-import { View } from 'react-native';
-import { toast, Flip } from 'react-toastify';
-import { FaAngleDoubleDown } from "react-icons/fa";
-import { css } from 'glamor';
+import { View, TouchableOpacity, Animated, Easing } from 'react-native';
+import { IoIosArrowDown } from "react-icons/io";
+import ReactTooltip from 'react-tooltip'
+import { animateScroll as scroll } from 'react-scroll';
 
 import Bio from '../components/Bio'
 import Header from '../components/MyHeader';
@@ -10,13 +10,6 @@ import BackgroundImage from '../components/Background';
 import { Theme } from '..';
 
 export default class Home extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cntY: window.innerHeight * 2,
-            showTip: false,
-        };
-    }
 
     componentDidMount() { this.setState({showTip: true }); }
 
@@ -30,47 +23,72 @@ export default class Home extends React.Component {
                     <Header>k Topol</Header>
                     <Header style={Theme.accent}>e</Header>
                     <Header>wski</Header>
+                    <ScrollDownTip/>
                 </BackgroundImage>
-                <ScrollDownTip show={this.state.showTip} cntY={this.state.cntY} />
             </View>
-            <Bio
-                style={Theme.content}
-                cb={(y) => this.setState({cntY: y})}
-            />
+            <Bio style={Theme.content} />
             </>
         );
     }
 }
 
-const ScrollDownTip = (props) => {
-    let Tip = () => { return(
-        <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-            <FaAngleDoubleDown style={{marginRight: 10}} />
-            <>Scroll down to read more..</>
-        </View>
-    ); }
-    if (props.show)
-    {
-        let windowY = () => { return window.scrollY + window.innerHeight; };
-        let contentY =  () => { return 1.1 * props.cntY; };
-        if (windowY() < contentY()) {
-            let toastId = toast(<Tip />, {
-                position: "bottom-center",
-                autoClose: 4000,
-                transition: Flip,
-                hideProgressBar: true,
-                draggable: false,
-                className: css({
-                    background: "#111 !important",
-                    border: "#AAA 0.5px solid",
-                }),
-            });
-            window.addEventListener('scroll', () => {
-                if (windowY() > contentY()) {
-                    toast.update(toastId, { render: "", type:toast.TYPE.INFO, autoClose:1 });
-                }
-            }, true);
-        }
+class ScrollDownTip extends React.Component {
+    state = {
+        fadeAnim: new Animated.Value(0),
+        moveAnim: new Animated.Value(0),
+    };
+
+    fade = (endValue, time) => {
+        return Animated.timing(
+            this.state.fadeAnim, 
+            { toValue: endValue, duration: time }
+        );
     }
-    return <></>;
+    move = (endValue, time) => {
+        return Animated.timing(
+            this.state.moveAnim,
+            { easing: Easing.back(), toValue: endValue, duration: time }
+        );
+    }
+    animation = Animated.sequence([
+        Animated.delay(1000), this.fade(1, 700),
+        Animated.delay(1000), this.move(0.4, 500), this.move(0, 500),
+        Animated.delay(200), this.move(0.4, 500), this.move(0, 500),
+        Animated.delay(1000), this.move(0.4, 500), this.move(0, 500),
+        Animated.delay(200), this.move(0.4, 500), this.move(0, 500),
+    ]);
+
+    componentDidMount() {
+        this.animation.start();
+    }
+
+    onClick = () => {
+        this.animation.stop();
+        Animated.parallel([this.move(0, 100), this.fade(1, 100)]).start();
+        scroll.scrollTo(window.innerHeight);
+    }
+
+    render() {
+        return (
+            <Animated.View style={{
+                position: "absolute",
+                bottom:"10%",
+                zIndex: 10,
+                opacity: this.state.fadeAnim,
+                transform: [{ translateY: this.state.moveAnim.interpolate({
+                    inputRange: [-1, 1],
+                    outputRange: [50, -50]
+                })}]
+            }}>
+                <TouchableOpacity onClick={() => { this.onClick() }} >
+                    <IoIosArrowDown
+                        size="7em"
+                        color="white"
+                        style={{  filter: "drop-shadow( 0px 3px 5px rgba(0, 0, 0, .7))" }}
+                    />
+                </TouchableOpacity>
+                <ReactTooltip type="light" place="bottom"/>
+            </Animated.View>
+        );
+    }
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { ToastContainer } from 'react-toastify';
 
 import Home from './pages/Home'
 import Projects from './pages/Projects'
@@ -46,7 +45,6 @@ export default class App extends React.Component {
                       <Route path="/*" component={Home} />
                     </Switch>
                     <Footer />
-                    <ToastContainer />
                   </main>
                 </CSSTransition>
               </TransitionGroup>
