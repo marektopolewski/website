@@ -318,3 +318,8 @@ img,
 .form-row.mb-4.nomargin {
   margin-top: -20px;
 }
+
+/********************** Override Recaptcha CSS **********************/
+.grecaptcha-badge {
+  z-index: 2;
+}

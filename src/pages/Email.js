@@ -1,8 +1,14 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Prompt } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import { animateScroll as scroll } from 'react-scroll'
+import ReCAPTCHA from "react-google-recaptcha";
+
+import $ from 'jquery'
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import BackgroundImage from '../components/Background'
 import Header from '../components/MyHeader';
@@ -13,43 +19,151 @@ export default class EmailPage extends React.Component {
 
     constructor(props) {
         super(props);
+        this.recaptchaRef = React.createRef();
         this.state = {
             fname: '', lname: '',
             affil: '',
             email: '', message: '',
-            confirm: true
+            confirm: true,
+            sendValid: { fname: true, lname: true, affil: true, email: true, message: true },
+            regex: { fname: true, lname: true, email: true },
+            currValid: { fname: true, lname: true, affil: true, email: true, message: true },
+            recaptcha: false,
         }
     }
 
-    confirmHide = (e) => {
-        if (this.state.fname === "" && this.state.lname === ""  && this.state.affil === ""
-            && this.state.email === "" && this.state.message === "") {
-            scroll.scrollToTop();
-            return;
+    clearForm() {
+        this.setState({ fname: "", lname: "", affil: "", email: "", message: "",
+                        sendValid: this.setValid(this.state.sendValid, undefined, undefined, true),
+                        currValid: this.setValid(this.state.currValid, undefined, undefined, true) });
+    }
+    leaveForm() { this.clearForm(); window.open("/contact", "_self"); }
+
+    componentWillUnmount() { this.clearForm(); scroll.scrollToTop(); }
+    componentDidMount() { this.recaptchaRef.current.execute(); }
+
+    valueChange = (e) => {
+        var id = e.target.id;
+        var val = e.target.value;
+        this.setState({ [id]: val });
+        if (!this.state.sendValid[id]) {
+            var temp;
+            if (val !== "") {
+                temp = this.setValid(this.state.currValid, id, true);
+            }
+            else
+                temp = this.setValid(this.state.currValid, id, false);
+
+            this.setState({ currValid: temp });
         }
-        if (window.confirm("\nCareful!\n\nDo you wish to close this form and abandon your changes?\n")) {
-            this.setState({ fname: "", lname: "", affil: "", email: "", message: "" });
-            scroll.scrollToTop();
-            return;
-        }
-        e.preventDefault();
-        e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation();
+    }
+    checkedChange = (e) => { this.setState({ confirm: e.target.checked }); }
+
+    setValid = (array, key, value, defval) => {
+        if (array === undefined) return;
+        var obj = {};
+        Object.entries(array).forEach(([k,v]) => {
+            if (k === key) obj[k] = value;
+            else obj[k] = defval === undefined ? v : true;
+        });
+        return obj;
     }
 
-    handleSubmit = (e) => {
-        console.log(this.state);
-        var form = document.getElementById("email-form");
-        var btn = document.createElement("button");
-        btn.setAttribute("type", "submit");
-        form.appendChild(btn);
-        btn.click();
+    handleClick = () => {
+        if (!this.state.recaptcha) {
+            this.setState({ recaptcha: false });
+            this.recaptchaRef.current.reset();
+            this.recaptchaRef.current.execute();
+        }
+        else
+            this.handleSubmit();
+    }
+
+    onReCaptchaChange = (val, submit) => {
+        if (val === null || val === undefined || val === "")
+            return;
+        this.setState({ recaptcha: true });
+        if (submit === true)
+            this.handleSubmit();
+    }
+
+    handleSubmit = () => {
+        var errFound = false;
+        var updatedValid = {};
+        this.setState({ regex: this.setValid(this.state.regex, undefined, undefined, true) });
+        Object.entries(this.state.sendValid).forEach(([field,_]) => {
+            var obj = $("#"+field);
+            var objValid = true;
+            if (field === "affil") ;
+            else if ((this.state[field].length === 0)) {
+                objValid = false;
+                obj.attr('data-tip', 'This field cannot be empty');
+            }
+            else if (field === "message") ;
+            else if (!this.state[field].match(/^([a-zA-Z|\W]+)$/i)) {
+                objValid = false;
+                this.setState({ regex: this.setValid(this.state.regex, field, false) });
+                obj.attr('data-tip', 'Only letters are allowed here');
+            }
+            else if (field === "email") {
+                if (!this.state.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+                    objValid = false;
+                    this.setState({ regex: this.setValid(this.state.regex, field, false) });
+                    obj.attr('data-tip', 'Please enter a valid address');
+                }
+            }
+
+            if (!objValid) {
+                obj.css('border', 'solid 1px #F0AD4E');
+                updatedValid[field] = false;
+                if (!errFound) { errFound = true; obj.focus(); }
+            }
+            else if (field !== "affil") {
+                obj.css('border', 'solid 1px #02cf32');
+                obj.attr('data-tip', 'Looks good!');
+                obj.attr('data-type', 'success');
+            }
+        });
+        this.setState({ sendValid: updatedValid }); this.setState({ currValid: updatedValid });
+
+        if (!errFound) {
+            var self = this;
+            $.ajax({
+                data: {
+                    'fname':    self.state.fname,
+                    'lname':    self.state.lname,
+                    'affil':    self.state.affil,
+                    'email':    self.state.email,
+                    'message':  self.state.message,
+                    'confirm':  self.state.confirm,
+                },
+                type: 'POST',
+                url: '/api/send.php',
+                success: function(data) {
+                    toast.success("Email sent", { autoClose: 2500 });
+                    setTimeout(function(){ self.leaveForm(); }, 2000);
+                },
+                error: function(xhr, status, err) {
+                    alert("\nWhoops!\n\nThe email could not be sent, try again later!\n\n" +
+                          "Request status: [" + status + "]. Request message: [" + err.toString() + "]" +
+                          "\n\nIf the issue continues get in touch at:\nmarekwebsite@viva-rumia.com\n");
+                    toast.error("Email not sent", { autoClose: false });
+                }
+            });
+            this.setState({ recaptcha: false });
+        }
     }
 
     render() {
         return (
             <>
-            <BigCross onClick={this.confirmHide}/>
+            <Prompt
+                when={this.state.fname !== "" || this.state.lname !== ""  || this.state.affil !== ""
+                      || this.state.email !== "" || this.state.message !== ""}
+                message="Careful! Do you wish to close this form without sending?"
+            />
+            <BigCross/>
+
             <BackgroundImage size="30">
                 <View style={{flexDirection:'column'}}>
                     <View>
@@ -72,26 +186,28 @@ export default class EmailPage extends React.Component {
                         <p className="h5 mb-4 bright">Your information</p>
                     </View>
                     {/* row 1 - Name */}
-                    <form className="needs-validation" id="email-form" action="../assets/test-src.php" method="post">
+                    <form className="needs-validation" id="email-form" action="">
                         <div className="form-row mb-4">
                             <div className="col mb-3 input-group">
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="fnamePre">First name</span>
                                 </div>
-                                <input type="text" className="form-control" id="fname" aria-describedby="fnamePre" required
+                                <input type="text" className="form-control" id="fname" aria-describedby="fnamePre"
                                     placeholder="Your first name"
                                     value={this.state.fname}
-                                    onChange={e => this.setState({ fname: e.target.value })}
+                                    onChange={e => this.valueChange(e)}
+                                    data-tip="This field cannot be empty" data-tip-disable={this.state.currValid.fname}
                                 />
                             </div>
                             <div className="col mb-3 input-group">
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="lnamePre">Last name</span>
                                 </div>
-                                <input type="text" className="form-control" id="lname" aria-describedby="lnamePre" required
+                                <input type="text" className="form-control" id="lname" aria-describedby="lnamePre"
                                     placeholder="Your last name"
                                     value={this.state.lname}
-                                    onChange={e => this.setState({ lname: e.target.value })}
+                                    onChange={e => this.valueChange(e)}
+                                    data-tip="This field cannot be empty" data-tip-disable={this.state.currValid.lname}
                                 />
                             </div>
                          </div>
@@ -104,7 +220,7 @@ export default class EmailPage extends React.Component {
                                     <input type="text" className="form-control" id="affil" aria-describedby="affilPre"
                                         placeholder="Company, university, group..."
                                         value={this.state.affil}
-                                        onChange={e => this.setState({ affil: e.target.value })}
+                                        onChange={e => this.valueChange(e)}
                                     />
                                     <div className="input-group-append">
                                         <span className="input-group-text append-form" id="">(optional)</span>
@@ -119,10 +235,11 @@ export default class EmailPage extends React.Component {
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="emailPre">Email address</span>
                                 </div>
-                                <input type="text" className="form-control" id="email" aria-describedby="emailPre" required
+                                <input type="text" className="form-control" id="email" aria-describedby="emailPre"
                                     placeholder="Your email address"
                                     value={this.state.email}
-                                    onChange={e => this.setState({ email: e.target.value })}
+                                    onChange={e => this.valueChange(e)}
+                                    data-tip="This field cannot be empty" data-tip-disable={this.state.currValid.email}
                                 />
                             </div>
                             <div className="col-md-4 mb-3 send-confirm">
@@ -130,7 +247,7 @@ export default class EmailPage extends React.Component {
                                     Send me a confirmation email
                                     <input type="checkbox"
                                         checked={this.state.confirm}
-                                        onChange={e => this.setState({ confirm: e.target.checked })}
+                                        onChange={e => this.checkedChange(e)}
                                     />
                                     <span className="checkmark"></span>
                                 </label>
@@ -138,20 +255,20 @@ export default class EmailPage extends React.Component {
                         </div>
                         {/* row 4 - Message */}
                         <div className="form-group col-md-12 mb-3 text-area">
-                            <textarea className="form-control" id="message" rows="10" required
+                            <textarea className="form-control" id="message" rows="10"
                                 placeholder="Type your message here"
                                 value={this.state.message}
                                 onChange={e => this.setState({ message: e.target.value })}
+                                data-tip="This field cannot be empty" data-tip-disable={this.state.currValid.message}
                             />
                         </div>
                     </form>
                     <Breakline size={20} />
 
                     <View style={styles.footerBtns}>
-                        <NavLink 
+                        <NavLink id="cancelBtn"
                             strict exact to={'/contact'} key={'/contact'}
                             style={{color: '#000', width: 'fit-content', textDecoration: 'none'}}
-                            onClick={e => this.confirmHide(e)}
                         >
                             <TouchableOpacity
                                 style={[btnStyle.touchOp, btnStyle.whiteBtn]}
@@ -161,30 +278,45 @@ export default class EmailPage extends React.Component {
                                 </View>
                             </TouchableOpacity>
                         </NavLink>
-                        <TouchableOpacity
-                            style={[btnStyle.touchOp, btnStyle.greenBtn]}
-                            onClick={() => this.handleSubmit()}
-                        >
-                            <View style={btnStyle.btnContainer}>
-                                <Text style={btnStyle.btnText}>Send</Text>
-                            </View>
-                        </TouchableOpacity>
+                        <SubmitButton onClick={() => this.handleClick()} rcp={this.state.recaptcha} />
                     </View>
                 </View>
             </View>
-            <ReactTooltip />
+            <ReactTooltip type="warning" effect="solid" />
+            <ReCAPTCHA
+                ref={this.recaptchaRef}
+                onChange={(e) => this.onReCaptchaChange(e, false)}
+                sitekey="6LdvmcoUAAAAAGZNZ0SoaK_NJQHJoogOP6bZ5is3"
+                size="invisible" theme="dark"
+            />
             </>
         );
     }
 }
 
+class SubmitButton extends React.Component {
+    render() {
+        return (
+            <TouchableOpacity
+                style={[btnStyle.touchOp, btnStyle.greenBtn]}
+                onClick={() => this.props.onClick()}
+                data-place="bottom" data-disabled={this.props.rcp}
+                data-tip="Click to submit" data-type="success"
+            >
+                <View id="submitOverlay" style={ btnStyle.btnContainer }>
+                    <Text style={btnStyle.btnText}>Send</Text>
+                </View>
+            </TouchableOpacity>
+    )};
+}
+
 const BigCross = (props) => {
     return (
-        <NavLink 
+        <>
+        <NavLink
             strict exact to={'/contact'} key={'/contact'}
             style={{color: '#000', width: 'fit-content', textDecoration: 'none'}}
-            onClick={e => props.onClick(e)}
-            data-tip="Cancel"
+            data-tip="Cancel" data-type="light" data-effect="float"
         >
             <span style={{
                 position: 'fixed',
@@ -196,6 +328,7 @@ const BigCross = (props) => {
                 <span className="bm-burger-bars rotate2" style={{position:'absolute', height:'20%', left:0, right:0, top:0, opacity:1}}></span>
         </span>
         </NavLink>
+        </>
     );
 }
 
@@ -232,7 +365,8 @@ const btnStyle = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0)',
     },
     btnText: {
         fontFamily: '"Trebuchet MS", Helvetica, sans-serif',

@@ -1,14 +1,12 @@
 <?php
-    $mailfrom = 'marekwebsite@viva-rumia.com';
-    $fromname = 'Nazwa firmy';
+    $HOST_MAIL = 'marekwebsite@viva-rumia.com';
+    $HOST_NAME = 'no-reply';
 
-    $headers  = 'MIME-Version: 1.0' . "\r\n"; 
-    $headers  .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-    $headers  .= 'From: '.$fromname .'<'.$mailfrom.'>'. "\r\n";
-   
-    if (@mail('marek.topolewski@gmail.com', 'tytuł maila', 'Treść maila', $headers, '-f '.$mailfrom)) {
-        echo "Mail Sent Successfully";
-    } else {
-        echo "Mail Not Sent";
-    }
+    $HEADERS  = 'MIME-Version: 1.0' . "\r\n"; 
+    $HEADERS  .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+    $HEADERS  .= 'From: '.$HOST_NAME .'<'.$HOST_MAIL.'>'. "\r\n";
+
+    $MY_MAIL = "marek.topolewski@gmail.com";
+
+    $MAIL_HEADER = '<img width="100%" src="http://www.viva-rumia.com/api/mailheader.jpg">';
 ?>
