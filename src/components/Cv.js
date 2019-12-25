@@ -21,7 +21,7 @@ export const Thumbnail = (props) => {
                 <View style={styles.pdf}>
                     <img
                         className="cv-thumbnail"
-                        src={require(`../assets/${props.file}`)}
+                        src={require(`../assets/${props.file}.jpg`)}
                         alt="CV thumbnail not found"
                     />
                 </View>
@@ -35,7 +35,7 @@ export const Thumbnail = (props) => {
                     <Breakline size={10}/>
                     <CvButton
                         text="Download"
-                        action={() => DownloadPdf("/api/" + props.file)}
+                        action={() => DownloadPdf("/api/" + props.file + ".pdf")}
                     >
                         <TiDownload/>
                     </CvButton>

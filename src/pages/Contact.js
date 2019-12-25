@@ -81,14 +81,14 @@ export default class Contact extends React.Component {
                 isOpen={this.state.modalOpen1}
                 onHide={this.onCloseModal1}
                 onPdfLoaded={this.onPdfLoadDone}
-                pdf={require("./pdfs/academic_cv.pdf")}
+                pdf={require("./pdfs/academic.pdf")}
                 pages={['1','2']}
             />
             <PdfModal 
                 isOpen={this.state.modalOpen2}
                 onHide={this.onCloseModal2}
                 onPdfLoaded={this.onPdfLoadDone}
-                pdf={require("./pdfs/industry_cv.pdf")}
+                pdf={require("./pdfs/professional.pdf")}
                 pages={['1']}
             />
 
@@ -117,7 +117,7 @@ export default class Contact extends React.Component {
                     <Cv
                         title="Academic"
                         previewFoo={this.onOpenPdf1}
-                        file={"academic.jpg"}
+                        file={"academic"}
                         onSuccess={() => this.onLoadedPdf()}
                     />
                     </View>
@@ -125,7 +125,7 @@ export default class Contact extends React.Component {
                     <Cv
                         title="Professional"
                         previewFoo={this.onOpenPdf2}
-                        file={"professional.jpg"}
+                        file={"professional"}
                         onSuccess={() => this.onLoadedPdf()}
                     />
                     </View>

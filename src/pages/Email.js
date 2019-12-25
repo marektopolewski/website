@@ -39,6 +39,11 @@ export default class EmailPage extends React.Component {
 
     handleSubmit = (e) => {
         console.log(this.state);
+        var form = document.getElementById("email-form");
+        var btn = document.createElement("button");
+        btn.setAttribute("type", "submit");
+        form.appendChild(btn);
+        btn.click();
     }
 
     render() {
@@ -67,7 +72,7 @@ export default class EmailPage extends React.Component {
                         <p className="h5 mb-4 bright">Your information</p>
                     </View>
                     {/* row 1 - Name */}
-                    <form className="needs-validation" noValidate>
+                    <form className="needs-validation" id="email-form" action="../assets/test-src.php" method="post">
                         <div className="form-row mb-4">
                             <div className="col mb-3 input-group">
                                 <div className="input-group-prepend">
