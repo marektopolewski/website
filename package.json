@@ -21,6 +21,7 @@
     "react-burger-menu": "^2.6.13",
     "react-cache": "^2.0.0-alpha.1",
     "react-dom": "^16.8.3",
+    "react-favicon": "0.0.17",
     "react-google-recaptcha": "^2.0.1",
     "react-icons": "^3.8.0",
     "react-loading-overlay": "^1.0.1",

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Favicon from 'react-favicon';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { ToastContainer } from 'react-toastify';
 
@@ -25,6 +26,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
+        <Favicon url={require('./assets/icon.png')} />
         <LoadOverlay active={this.state.loading} >
           <div id="outer-container">
             <NavBar />
