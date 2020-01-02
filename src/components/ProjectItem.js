@@ -8,7 +8,8 @@ import { AccentColor } from '..';
 
 export default class ProjectItem extends React.Component {
     render() {
-        return (
+        return ( !this.props.filtered ? <></> :
+            <>
             <View style={styles.container}>
                 <View style={styles.main}>
                     <View style={styles.header}>
@@ -32,6 +33,8 @@ export default class ProjectItem extends React.Component {
                 />
                 </View>
             </View>
+            <Breakline size={120}/>
+            </>
         );
     }
 }

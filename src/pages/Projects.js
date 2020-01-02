@@ -1,13 +1,56 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Animated } from 'react-native';
+import Select from 'react-select'
 
 import ProjectItem from '../components/ProjectItem'
 import BackgroundImage from '../components/Background'
 import Header from '../components/MyHeader';
 import Breakline from '../components/Breakline';
-import { Theme } from '..';
+import { Theme, AccentColor } from '..';
 
-export default class Home extends React.Component {
+export default class Projects extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { 
+            selected: { ml: true, ai: true,
+                        db: true, wb: true,
+                        df: true,           },
+            projOpacity: new Animated.Value(1),
+        }
+    }
+
+    options = [
+        {value: 'ml', label:'Machine Learning'},
+        {value: 'ai', label:'Artificial Intelligence'},
+        {value: 'db', label:'Databases'},
+        {value: 'wb', label:'Web Development'},
+        {value: 'df', label:'Digital Forensics'},
+    ]
+
+    onSelectChange = (selectedOption) => {
+        var temp = {};
+        var isEmpty = selectedOption === null || selectedOption.length === 0;
+        for( var k in this.state.selected) {
+            temp[[k]] = isEmpty || selectedOption.map(({ value }) => value).includes(k);
+        }
+        Animated.timing(this.state.projOpacity, { toValue:0, duration:1 }).start();
+        this.setState({selected: temp});
+        Animated.sequence([
+            Animated.delay(200),
+            Animated.timing(this.state.projOpacity, { toValue:1, duration:200 }),
+        ]).start();
+    }
+
+    filterProject = (key) => {
+        if (this.state.selectedOption === null || this.state.selectedOption === undefined)
+            return true;
+        this.state.selectedOption.forEach(option => {
+            if (option.value === key) return true;
+        });
+        return false;
+    }
+
     render() {
         return (
             <>
@@ -17,11 +60,18 @@ export default class Home extends React.Component {
                 </Header>
             </BackgroundImage>
             <View style={[styles.pageView, Theme.content]}>
+                <ProjectSelect
+                    value={this.state.value}
+                    onChange={(e) => this.onSelectChange(e)}
+                    options={this.options.sort((a,b) => a.value.localeCompare(b.value))}
+                />
+                <Animated.View style={{ opacity: this.state.projOpacity }}>
                 <ProjectItem
                     title="React Native with Support for Web"
                     tags={["React_Native", "Web", "JS", "CSS"]}
                     img="react.jpg"
                     url="https://github.com/marektopolewski/website"
+                    filtered={this.state.selected["wb"]}
                 >
                     Instead of using a ready template from Wordpress, I decided to take up the challenge and 
                     learn React to create my own website from "scratch".<br/>
@@ -31,12 +81,12 @@ export default class Home extends React.Component {
                     due to the use of React Native instead of plain React, many of those components do not function 
                     as expected, hence, were substituted using custom objects.
                 </ProjectItem>
-                <Breakline size={150}/>
                 <ProjectItem 
                     title="Trap States in Monte Carlo Tree Search"
                     tags={["AI", "Game_Theory", "Monte_Carlo", "Java", "C++"]}
                     img="thesis.jpg"
                     url="https://github.com/marektopolewski/Trap-States-MCTS"
+                    filtered={this.state.selected["ai"]}
                 >
                     The third-year project researched under the supervision of Paolo Turrini for my Bachelor's 
                     thesis. The dissertation consists of a final report and an implementation of a C++ Chess 
@@ -48,12 +98,12 @@ export default class Home extends React.Component {
                     of the project is to address this challenge to allow further advancements in the MCTS emerging 
                     as an optimal algorithm capable of General Game Playing.
                 </ProjectItem>
-                <Breakline size={150}/>
                 <ProjectItem
                     title="XOR Problem in Neural Networks"
                     tags={["Neural_Network", "MLP", "Python"]}
                     img="xor.jpg"
                     url="https://github.com/marektopolewski/mlp-xor"
+                    filtered={this.state.selected["ml"]}
                 >
                     Neural networks are currently one of the fastest-growing areas of computer intelligence. They 
                     are also arguably our best attempt to model the human brain thus far. This project attempts to 
@@ -64,12 +114,12 @@ export default class Home extends React.Component {
                     evaluates this neural network under a variety of parameters to determine their influence over 
                     the model’s performance.
                 </ProjectItem>
-                <Breakline size={150}/>
                 <ProjectItem
                     title="User Interface Evaluation and Design"
                     tags={["UX", "Social_Informatics", "Design", "ReactJS"]}
                     img="eveg.jpg"
                     url="https://github.com/marektopolewski/evegPublicVersion"
+                    filtered={this.state.selected["wb"]}
                 >
                     Neural networks are currently one of the fastest-growing areas of computer intelligence. They 
                     are also arguably our best attempt to model the human brain thus far. This project attempts to 
@@ -80,12 +130,12 @@ export default class Home extends React.Component {
                     evaluates this neural network under a variety of parameters to determine their influence over 
                     the model’s performance.
                 </ProjectItem>
-                <Breakline size={150}/>
                 <ProjectItem
                     title="PLAsTiCC Kaggle Competition"
                     tags={["Machine_Learning", "Keras_CNN", "Random_Forest", "Python"]}
                     img="kaggle.jpg"
                     url="https://github.com/marektopolewski/plasticc-kaggle"
+                    filtered={this.state.selected["ml"]}
                 >
                     The aim of the project is to analyse a finctional dataset generated by two space probes that 
                     collected data on extra-terrestrial life forms. Given complete samples gathered by probe A, 
@@ -95,12 +145,12 @@ export default class Home extends React.Component {
                     accurate of which will be discussed in the report along with feature engineering techniques 
                     employed.
                 </ProjectItem>
-                <Breakline size={150}/>
                 <ProjectItem
                     title="Hadoop &amp; Hive: Text Analytics"
                     tags={["Databases", "MapReduce", "Hadoop", "Hive", "Java"]}
                     img="adb.jpg"
                     url="https://github.com/marektopolewski/hadoop-hive"
+                    filtered={this.state.selected["db"]}
                 >
                     Big data is becoming an increasingly important aspect of IT. Handling huge volumes of 
                     information requires distributed and parallel systems that ensure integrity and efficiency 
@@ -115,12 +165,12 @@ export default class Home extends React.Component {
                     The project implements queries to solve non-trivial problems on large volumes of data
                     using both approaches and measures their performance.
                 </ProjectItem>
-                <Breakline size={150}/>
                 <ProjectItem
                     title="Fictional Space Probe Data Classification"
                     tags={["Machine_Learning", "Sklearn", "Regularisers", "Python"]}
                     img="plants-animals.jpg"
                     url="https://github.com/marektopolewski/probe-prediction"
+                    filtered={this.state.selected["ml"]}
                 >
                     The aim of the project is to analyse a finctional dataset generated by two space probes that 
                     collected data on extra-terrestrial life forms. Given complete samples gathered by probe A, 
@@ -130,12 +180,12 @@ export default class Home extends React.Component {
                     accurate of which will be discussed in the report along with feature engineering techniques 
                     employed.
                 </ProjectItem>
-                <Breakline size={150}/>
                 <ProjectItem
                     title="Mobile Robotics: Lego NTX"
                     tags={["Robotics", "Mapping", "Motion_Planning", "lejOS", "Java"]}
                     img="lego-ntx.jpg"
                     url="https://github.com/marektopolewski/robotics-lego-ntx"
+                    filtered={this.state.selected["ai"]}
                 >
                     Mobile robots are expected to move freely within the environment and interpret it which 
                     significantly increases their potential and efficiency. To navigate safely, they are required 
@@ -145,12 +195,12 @@ export default class Home extends React.Component {
                     environment comprised of a static grid with random obastacles. It should be able to navigate it 
                     and find the shortest path between selected points by solely relaying on its sensory data. 
                 </ProjectItem>
-                <Breakline size={150}/>
                 <ProjectItem
                     title="Image and Video Forensics"
                     tags={["Digital_Forensics", "Img_Enhancement", "Vid_Encoding", "Matlab"]}
                     img="digital-forensics.jpg"
                     url="https://github.com/marektopolewski/digital-forensics"
+                    filtered={this.state.selected["df"]}
                 >
                     Mobile robots are expected to move freely within the environment and interpret it which 
                     significantly increases their potential and efficiency. To navigate safely, they are required 
@@ -160,15 +210,57 @@ export default class Home extends React.Component {
                     environment comprised of a static grid with random obastacles. It should be able to navigate it 
                     and find the shortest path between selected points by solely relaying on its sensory data. 
                 </ProjectItem>
+                </Animated.View>
             </View>
             </>
         );
     }
 }
 
+class ProjectSelect extends React.Component {
+    render() {
+        return (
+            <View style={this.styles.outer}>
+            <View style={this.styles.inner}>
+                <Text style={{color: 'white'}}>
+                    <Select
+                        placeholder="Filter by subject.."
+                        value={this.props.value} isMulti
+                        onChange={this.props.onChange}
+                        options={this.props.options}
+                        theme={theme => ({  ...theme,
+                            colors: {
+                                ...theme.colors,
+                                primary: 'black', primary25: AccentColor,
+                                neutral0: 'black', neutral10: '#222', neutral80: 'white',
+                            },
+                        })}
+                    />
+                </Text>
+                <Breakline size={120}/>
+            </View>
+            </View>
+        )
+    }
+
+    styles = StyleSheet.create({
+        outer: {
+            flex: 1,
+            flexDirection: 'row',
+            alignContent: 'center',
+            justifyContent: 'center',
+            zIndex: 10,
+        },
+        inner: {
+            width: '50%',
+        },
+    });
+}
+
 const styles = StyleSheet.create({
     pageView: {
-        paddingVertical: '20vh',
+        paddingTop: '5vh',
+        paddingBottom: '10vh',
         paddingHorizontal: '10vw',
     },
 });
