@@ -65,6 +65,15 @@ export default class MyNavBar extends React.Component {
         </NavLink>
         <br />
         <NavLink 
+          strict exact to={'/hobbies'} key={'/hobbies'}
+          style={{color: this.inactiveCol}} activeStyle={{color: this.accentColor}}
+          onClick={() => this.closeMenu()}
+          isActive={this.isActive.bind(this, '/hobbies')}
+        >
+          <Text style={styles.navText}>Hobbies</Text>
+        </NavLink>
+        <br />
+        <NavLink 
           strict exact to={'/contact'} key={'/contact'}
           style={{color: this.inactiveCol}} activeStyle={{color: this.accentColor}}
           onClick={() => this.closeMenu()}

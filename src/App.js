@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Projects from './pages/Projects'
 import Contact from './pages/Contact'
 import Email from './pages/Email'
+import Hobbies from './pages/Hobbies'
 
 import NavBar from './components/MyNavBar'
 import Footer from './components/Footer'
@@ -41,6 +42,7 @@ export default class App extends React.Component {
                     <Switch location={location}>
                       <Route exact path="/" component={Home} />
                       <Route exact path="/projects" component={Projects} />
+                      <Route exact path="/hobbies" component={Hobbies} />
                       <Route exact path="/contact" render={(props) =>
                         <Contact {...props} loading={this.setLoading} delay={this.setDelay}/>
                       }/>
