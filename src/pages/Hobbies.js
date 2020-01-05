@@ -71,7 +71,7 @@ export default class Hobbies extends React.Component {
                     and trained at different clubs until highschool. Presented with an opportunity to rejoin with the sport
                     at the university, I signed up without a second thought.<br/>
                     <Breakline size={30}/>
-                    However, being part of the university club is not only representing Warwick at the <a target="_blank" href="https://ukfloorball.com/">UKFF</a> tournaments
+                    However, being part of the university club is not only representing Warwick at the <Link text="UKFF" href="https://ukfloorball.com/"/> tournaments
                     but also bonding with other people that have an equal passion for the sport. The club is run by a
                     number of executives whose purpose is to ensure that members are active during both training sessions
                     as well as social events and that the group remains inclusive and appealing to new joiners.<br/>
@@ -81,12 +81,20 @@ export default class Hobbies extends React.Component {
                     Despite being an executive member for just one year, I was a member my whole time at uni and I continue
                     to attend annual alumni events hosted by the team.<br/>
                     <Breakline size={50}/>
-                    Visit the <i>International Floorball Federation</i> website and learn more at: <a target="_blank" href="https://floorball.sport/">www.floorball.sport</a>
+                    Visit the <i>International Floorball Federation</i> website and learn more at: <Link text="www.floorball.sport" href="https://floorball.sport/"/>
                 </HobbyItem>
             </View>
             </>
         );
     }
+}
+
+const Link = (props) => {
+    return (
+        <a rel="noopener noreferrer" target="_blank" href={ props.href } >
+            { props.text }
+        </a>
+    );
 }
 
 const styles = StyleSheet.create({

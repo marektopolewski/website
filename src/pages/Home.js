@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, Animated, Easing } from 'react-native';
 import { IoIosArrowDown } from "react-icons/io";
-import ReactTooltip from 'react-tooltip'
 import { animateScroll as scroll } from 'react-scroll';
 
 import Bio from '../components/Bio'
@@ -72,7 +71,7 @@ class ScrollDownTip extends React.Component {
         return (
             <Animated.View style={{
                 position: "absolute",
-                bottom:"10%",
+                bottom:"5%",
                 zIndex: 10,
                 opacity: this.state.fadeAnim,
                 transform: [{ translateY: this.state.moveAnim.interpolate({
@@ -84,10 +83,9 @@ class ScrollDownTip extends React.Component {
                     <IoIosArrowDown
                         size="7em"
                         color="white"
-                        style={{  filter: "drop-shadow( 0px 3px 5px rgba(0, 0, 0, .7))" }}
+                        style={{ filter: "drop-shadow( 0px 3px 5px rgba(0, 0, 0, .7))" }}
                     />
                 </TouchableOpacity>
-                <ReactTooltip type="light" place="bottom"/>
             </Animated.View>
         );
     }

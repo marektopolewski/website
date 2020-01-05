@@ -164,7 +164,7 @@ export default class EmailPage extends React.Component {
             />
             <BigCross/>
 
-            <BackgroundImage size="30">
+            <BackgroundImage size="40">
                 <View style={{flexDirection:'column'}}>
                     <View>
                         <Header style={{textAlign:'center', fontSize:30 }}>
@@ -320,8 +320,8 @@ const BigCross = (props) => {
         >
             <span style={{
                 position: 'fixed',
-                width: '42px', height: '42px',
-                left: '100px', top: '48px',
+                width: '35px', height: '35px',
+                left: '70px', top: '28px',
                 zIndex: 500,
             }} >
                 <span className="bm-burger-bars rotate1" style={{position:'absolute', height:'20%', left:0, right:0, top:0, opacity:1}}></span>

@@ -92,7 +92,7 @@ export default class Contact extends React.Component {
                 pages={['1']}
             />
 
-            <BackgroundImage size="50">
+            <BackgroundImage size="60">
                 <Header style={{textAlign: 'center'}}>
                     Contact
                 </Header>
