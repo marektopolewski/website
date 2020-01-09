@@ -1,5 +1,5 @@
 <?php
-    $HOST_MAIL = 'marekwebsite@viva-rumia.com';
+    $HOST_MAIL = 'no-reply@mtopolewski.com';
     $HOST_NAME = 'no-reply';
 
     $HEADERS  = 'MIME-Version: 1.0' . "\r\n"; 
@@ -8,5 +8,5 @@
 
     $MY_MAIL = "marek.topolewski@gmail.com";
 
-    $MAIL_HEADER = '<img width="100%" src="http://www.viva-rumia.com/api/mailheader.jpg">';
+    $MAIL_HEADER = '<img width="100%" src="http://www.mtopolewski.com/api/mailheader.jpg">';
 ?>
