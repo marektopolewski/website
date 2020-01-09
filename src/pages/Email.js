@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import BackgroundImage from '../components/Background'
 import Header from '../components/MyHeader';
-import { Theme } from '..';
+import { Theme, MobileWidth } from '..';
 import Breakline from '../components/Breakline';
 
 export default class EmailPage extends React.Component {
@@ -29,6 +29,7 @@ export default class EmailPage extends React.Component {
             regex: { fname: true, lname: true, email: true },
             currValid: { fname: true, lname: true, affil: true, email: true, message: true },
             recaptcha: false,
+            width: window.innerWidth,
         }
     }
 
@@ -39,8 +40,15 @@ export default class EmailPage extends React.Component {
     }
     leaveForm() { this.clearForm(); window.open("/contact", "_self"); }
 
-    componentWillUnmount() { this.clearForm(); scroll.scrollToTop(); }
-    componentDidMount() { this.recaptchaRef.current.execute(); }
+    componentWillUnmount() {
+        window.removeEventListener('resize', () => this.setState({ width: window.innerWidth }));
+        this.clearForm();
+        scroll.scrollToTop();
+    }
+    componentDidMount() {
+        window.addEventListener('resize', () => this.setState({ width: window.innerWidth }));
+        this.recaptchaRef.current.execute();
+    }
 
     valueChange = (e) => {
         var id = e.target.id;
@@ -180,8 +188,8 @@ export default class EmailPage extends React.Component {
                 </View>
             </BackgroundImage>
 
-            <View style={[styles.pageView, Theme.content]}>
-                <View style={styles.form}>
+            <View style={[styles.pageView, Theme.content, { paddingHorizontal: this.state.width < MobileWidth ? '5%' : '20%' }]}>
+                <View>
                     <View>
                         <p className="h5 mb-4 bright">Your information</p>
                     </View>
@@ -321,7 +329,7 @@ const BigCross = (props) => {
             <span style={{
                 position: 'fixed',
                 width: '35px', height: '35px',
-                left: '70px', top: '28px',
+                left: 'calc(5% + 60px)', top: '4%',
                 zIndex: 500,
             }} >
                 <span className="bm-burger-bars rotate1" style={{position:'absolute', height:'20%', left:0, right:0, top:0, opacity:1}}></span>
@@ -336,7 +344,6 @@ const styles = StyleSheet.create({
     pageView: {
         paddingTop: '5vh',
         paddingBottom: '20vh',
-        paddingHorizontal: '20vw',
     },
     footerBtns: {
         flex: 1,

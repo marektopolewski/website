@@ -6,7 +6,7 @@ import { animateScroll as scroll } from 'react-scroll';
 import Bio from '../components/Bio'
 import Header from '../components/MyHeader';
 import BackgroundImage from '../components/Background';
-import { Theme } from '..';
+import { Theme, MobileWidth } from '..';
 
 export default class Home extends React.Component {
 
@@ -17,11 +17,14 @@ export default class Home extends React.Component {
             <>
             <View>
                 <BackgroundImage size="100">
-                    <Header>Mar</Header>
-                    <Header style={Theme.accent}>e</Header>
-                    <Header>k Topol</Header>
-                    <Header style={Theme.accent}>e</Header>
-                    <Header>wski</Header>
+                    <View style={{ 
+                        flex: 1, flexDirection: 'row', flexWrap: 'wrap',
+                        justifyContent: 'center', alignItems: 'center',
+                        maxWidth: '90%'
+                    }}>
+                        <Header>Mar<Header style={Theme.accent}>e</Header>k </Header>
+                        <Header>Topol<Header style={Theme.accent}>e</Header>wski</Header>
+                    </View>
                     <ScrollDownTip/>
                 </BackgroundImage>
             </View>
@@ -64,7 +67,7 @@ class ScrollDownTip extends React.Component {
     onClick = () => {
         this.animation.stop();
         Animated.parallel([this.move(0, 100), this.fade(1, 100)]).start();
-        scroll.scrollTo(window.innerHeight);
+        scroll.scrollTo((window.innerWidth < MobileWidth ? 0.8 : 1) * window.innerHeight);
     }
 
     render() {

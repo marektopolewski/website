@@ -8,6 +8,11 @@
     $confirm = filter_var(trim($_POST["confirm"]), FILTER_VALIDATE_BOOLEAN);
     $message = nl2br(strip_tags($_POST["message"]));
 
+    if (empty($fname) || empty($lname) || empty($email) || empty($confirm) || empty($message)) {
+        http_response_code(500);
+        exit("Invalid request!");
+    }
+
     if (empty($affil)) {
         $affil = "(none)";
     }

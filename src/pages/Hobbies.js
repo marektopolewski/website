@@ -4,10 +4,20 @@ import { View, Text, StyleSheet } from 'react-native';
 import BackgroundImage from '../components/Background'
 import Header from '../components/MyHeader';
 import Breakline from '../components/Breakline';
-import { Theme } from '..';
+import { Theme, MobileWidth } from '..';
 import HobbyItem from '../components/HobbyItem';
 
 export default class Hobbies extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { width: window.innerWidth };
+    }
+
+    componentDidMount() { window.addEventListener('resize', this.handleResize) }
+    componentWillUnmount() {  window.removeEventListener('resize', this.handleResize) }
+    handleResize = () => { this.setState({ width: window.innerWidth }); };
+
     render() {
         return (
             <>
@@ -28,24 +38,18 @@ export default class Hobbies extends React.Component {
                     aims to provide creative problem-solving opportunities and build complex mechanical devices.<br/>
                     <Breakline size={30}/>
                     The competition can be separated into <u>two challanges</u>:<br/>
-                    <View style={{flex:1, width:'100%', flexDirection:'row', paddingVertical:'20px'}}>
-                        <View style={{flex:1, paddingHorizontal:'15px'}}>
-                            <Header style={{fontSize:'inherit', textAlign:'center'}}>Long-term</Header>
-                            <Text style={{marginTop: '10px', fontSize: 'small'}}>
-                                Team spends months developling their solution to one of the 5 problems which require
-                                brainstorming, artwork, set and technical design, sketch-writing and more. Their efforts
-                                must be contained within an 8-minute performance.
-                            </Text>
+                    { this.state.width < MobileWidth ?
+                        <View style={{flex:1, flexDirection:'column', paddingVertical:'20px', paddingHorizontal: '10px'}}>
+                            <LongTerm/>
+                            <Breakline size={20}/>
+                            <ShortTerm/>
                         </View>
-                        <View style={{flex:1, paddingHorizontal:'15px'}}>
-                            <Header style={{fontSize:'inherit', textAlign:'center'}}>Spontaneuos</Header> 
-                            <Text style={{marginTop: '10px', fontSize: 'small'}}>
-                                As opposed to long-term, those are tasks solved 'at the spot'. The problem is not revealed
-                                until the team walks into the room and have as little as 5 minutes to prove their skills
-                                and spontaneous creativity to the judges.
-                            </Text>
+                        :
+                        <View style={{flex:1, width:'100%', flexDirection:'row', paddingVertical:'20px'}}>
+                            <View style={{flex:1, paddingHorizontal:'15px'}}><LongTerm/></View>
+                            <View style={{flex:1, paddingHorizontal:'15px'}}><ShortTerm/></View>
                         </View>
-                    </View>
+                    }
                     <br/>
                     For either of these, my favourite aspects were always the technical tasks. Not only was I able
                     to reinforce my critical thinking, but also create with the team something new out of nothing.<br/>
@@ -81,12 +85,38 @@ export default class Hobbies extends React.Component {
                     Despite being an executive member for just one year, I was a member my whole time at uni and I continue
                     to attend annual alumni events hosted by the team.<br/>
                     <Breakline size={50}/>
-                    Visit the <i>International Floorball Federation</i> website and learn more at: <Link text="www.floorball.sport" href="https://floorball.sport/"/>
+                    Visit the International Floorball Federation website and learn more at: <Link text="www.floorball.sport" href="https://floorball.sport/"/>
                 </HobbyItem>
             </View>
             </>
         );
     }
+}
+
+const LongTerm = () => {
+    return (
+        <>
+        <Header style={{fontSize:'inherit', textAlign:'center'}}>Long-term</Header>
+        <Text style={{marginTop: '10px', fontSize: 'small'}}>
+            Team spends months developling their solution to one of the 5 problems which require
+            brainstorming, artwork, set and technical design, sketch-writing and more. Their efforts
+            must be contained within an 8-minute performance.
+        </Text>
+        </>
+    );
+}
+
+const ShortTerm = () => {
+    return (
+        <>
+        <Header style={{fontSize:'inherit', textAlign:'center'}}>Spontaneuos</Header> 
+        <Text style={{marginTop: '10px', fontSize: 'small'}}>
+            As opposed to long-term, those are tasks solved 'at the spot'. The problem is not revealed
+            until the team walks into the room and have as little as 5 minutes to prove their skills
+            and spontaneous creativity to the judges.
+        </Text>
+        </>
+    );
 }
 
 const Link = (props) => {
@@ -99,7 +129,7 @@ const Link = (props) => {
 
 const styles = StyleSheet.create({
     pageView: {
-        paddingVertical: '19vh',
+        paddingVertical: '20vh',
         paddingHorizontal: '10vw',
     },
 });

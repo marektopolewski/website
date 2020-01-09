@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from 'react-router-dom';
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Animated } from "react-native";
 import { animateScroll as scroll } from 'react-scroll'
 import onClickOutside from "react-onclickoutside";
 import { FaBars } from 'react-icons/fa';
@@ -11,14 +11,26 @@ import { AccentColor } from '..';
 class MyDropDown extends React.Component {
     constructor(props) {
       super(props);
-      this.state = { dropdownShow: false };
+      this.state = {
+        dropdownShow: false,
+        dropDownOp: new Animated.Value(0)
+      };
     }
   
-    handleClickOutside(e) { console.log("click outside"); this.setState({dropdownShow: false}); }
-    toggleDropdown() { this.setState({dropdownShow: !this.state.dropdownShow}) }
+    handleClickOutside() {
+      Animated.timing(this.state.dropDownOp, {toValue:0, duration:300 }).start(
+        this.setState({dropdownShow: false})
+      );
+    }
+    toggleDropdown() {
+      Animated.timing(this.state.dropDownOp, {toValue: this.state.dropdownShow ? 0 : 1 , duration:300 }
+      ).start(
+        this.setState({dropdownShow: !this.state.dropdownShow})
+      );
+    }
   
     handleClick() {
-      this.setState({dropdownShow: false});
+      this.handleClickOutside();
       scroll.scrollToTop();
     }
   
@@ -28,27 +40,30 @@ class MyDropDown extends React.Component {
       return (
         <View>
           <TouchableOpacity onPress={() => this.toggleDropdown()}>
-            <FaBars color="rgb(170, 170, 170)" size='3em'/>
+            <FaBars color="rgb(170, 170, 170)" size='1.5em'/>
           </TouchableOpacity>
           { this.state.dropdownShow ?
-            <View style={this.dropdownStyles.navList}>
+            <Animated.View style={[this.dropdownStyles.navList, {opacity: this.state.dropDownOp}]}>
               { this.props.options.map(item => { return(
-                  <View key={item.to} style={{ justifyContent:'center', alignItems:'flex-start'}}>
-                    <NavLink
-                      strict exact to={getUrl(item.to)} key={getUrl(item.to)}
-                      style={{textDecoration: 'none', color: '#AAA'}} activeStyle={{color: AccentColor}}
-                      isActive={isActive.bind(this, getUrl(item.to))}
-                      onClick={(e) => this.handleClick(e)}
-                    >
-                      <View style={this.dropdownStyles.navItem}>
+                <View key={item.to} style={{ justifyContent:'center', alignItems:'flex-start'}}>
+                  <NavLink
+                    strict exact to={getUrl(item.to)} key={getUrl(item.to)}
+                    style={{textDecoration: 'none', color: '#AAA'}} activeStyle={{color: AccentColor}}
+                    isActive={isActive.bind(this, getUrl(item.to))}
+                    onClick={(e) => this.handleClick()}
+                  >
+                    <View style={this.dropdownStyles.navItem}>
+                      <View style={{flex:1, flexDirection:'row', justifyContent: 'flex-end'}}>
                         { item.iconLarge }
+                      </View>
+                      <View style={{flex:3, flexDirection:'row'}}>
                         <Text style={this.dropdownStyles.navText}>{item.to}</Text>
                       </View>
-                    </NavLink>
-                  </View>
-                )})
-              }
-            </View>
+                    </View>
+                  </NavLink>
+                </View>
+              )})}
+            </Animated.View>
             :
             <></>
           }
@@ -58,24 +73,24 @@ class MyDropDown extends React.Component {
   
     dropdownStyles = StyleSheet.create({
       navList: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        flex: 1,
+        flexDirection: 'row', flexWrap: 'wrap',
+        justifyContent: 'center', alignItems: 'center',
         position: 'fixed',
-        top: '10%', right: 0,
-        width: '70%',
-        backgroundColor: 'black'
+        top: '8%', right: 0,
+        backgroundColor: 'rgba(0,0,0,0.9)'
       },
       navItem: {
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '90px'
+        width:'50%', minWidth: '170px',
+        height: '60px'
       },
       navText: {
         marginLeft: '10px',
         color: 'inherit',
-        fontSize: '40px',
         marginTop: '5px',
       },
     });

@@ -4,14 +4,23 @@ import { NavLink } from 'react-router-dom';
 
 import Breakline from './Breakline';
 import Text from './MyText';
-import { AccentColor } from '..';
+import { AccentColor, MobileWidth } from '..';
 
 export default class HobbyItem extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { width: window.innerWidth };
+    }
+
+    componentDidMount() { window.addEventListener('resize', this.handleResize) }
+    componentWillUnmount() {  window.removeEventListener('resize', this.handleResize) }
+    handleResize = () => { this.setState({ width: window.innerWidth }); };
+
     render() {
         return (
             <>
             <View style={styles.container}>
-                <View style={styles.main}>
+                <View style={[styles.main, {width: this.state.width < MobileWidth ? '95%' : '60%'}]}>
                     <View style={styles.header}>
                         <ProjectTitle val={this.props.title} />
                         <WebButton 
@@ -111,8 +120,6 @@ const styles = StyleSheet.create({
         marginTop: -40,
     },
     main: {
-        width: '50vw',
-        minWidth: 300,
         maxWidth: 900,
         marginTop: 20,
         marginRight: 10,

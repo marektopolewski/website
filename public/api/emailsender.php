@@ -8,5 +8,5 @@
 
     $MY_MAIL = "marek.topolewski@gmail.com";
 
-    $MAIL_HEADER = '<img width="100%" src="http://www.mtopolewski.com/api/mailheader.jpg">';
+    $MAIL_HEADER = '<img width="100%" src="https://www.mtopolewski.com/api/mailheader.jpg">';
 ?>

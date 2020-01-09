@@ -6,35 +6,33 @@ import { FaGithub, FaHotTub, FaPhoneSquare, FaHome, FaUserFriends } from 'react-
 
 import Text from './MyText';
 import Dropdown from './MyDropDown';
-import { AccentColor } from '..';
+import { AccentColor, MobileWidth } from '..';
  
 export default class MyNavBar extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { width: window.innerWidth, iconSize: 0.06 * window.innerHeight };
+    this.state = { width: window.innerWidth, iconSize: 0.05 * window.innerHeight };
   }
 
   componentDidMount() { window.addEventListener('resize', this.handleResize) }
   componentWillUnmount() {  window.removeEventListener('resize', this.handleResize) }
   handleResize = () => {
     this.setState({ width: window.innerWidth });
-    this.setState({ iconSize: 0.06 * window.innerHeight });
+    this.setState({ iconSize: 0.05 * window.innerHeight });
   };
 
   navItems = [
-    {to: 'Home', icon:<FaHome/>, iconLarge:<FaHome size="2.5em"/>},
-    {to: "Projects", icon: <FaGithub/>, iconLarge:<FaGithub size="2.5em"/>},
-    {to: "Experience", icon: <FaUserFriends/>, iconLarge:<FaUserFriends size="2.5em"/>},
-    {to: "Hobbies", icon: <FaHotTub/>, iconLarge:<FaHotTub size="2.5em"/>},
-    {to: "Contact", icon: <FaPhoneSquare/>, iconLarge:<FaPhoneSquare size="2.5em"/>},
+    {to: 'Home', icon:<FaHome/>, iconLarge:<FaHome size="1.5em"/>},
+    {to: "Projects", icon: <FaGithub/>, iconLarge:<FaGithub size="1.5em"/>},
+    {to: "Experience", icon: <FaUserFriends/>, iconLarge:<FaUserFriends size="1.5em"/>},
+    {to: "Hobbies", icon: <FaHotTub/>, iconLarge:<FaHotTub size="1.5em"/>},
+    {to: "Contact", icon: <FaPhoneSquare/>, iconLarge:<FaPhoneSquare size="1.5em"/>},
   ];
-
-  isMobile = () => { return this.state.width > 1000 };
 
   render () {
     return (
-      <View style={[styles.wrapper, {height: "10%" }]}>
+      <View style={[styles.wrapper, {height: "8%" }]}>
         <View style={styles.logo}>
           <NavLink strict exact to={'/'} key={'/'} onClick={() => scroll.scrollToTop()}>
             <Image
@@ -44,7 +42,7 @@ export default class MyNavBar extends React.Component {
           </NavLink>
         </View>
         <View style={styles.items}>
-          { this.isMobile() ?
+          { this.state.width >= MobileWidth ?
             <>{ this.navItems.map(item => <Item key={item.to} to={item.to} icon={item.icon} />) }</>
             :
             <Dropdown options={this.navItems} />

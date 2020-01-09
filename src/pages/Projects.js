@@ -6,7 +6,7 @@ import ProjectItem from '../components/ProjectItem'
 import BackgroundImage from '../components/Background'
 import Header from '../components/MyHeader';
 import Breakline from '../components/Breakline';
-import { Theme, AccentColor } from '..';
+import { Theme, AccentColor, MobileWidth } from '..';
 
 export default class Projects extends React.Component {
 
@@ -218,10 +218,20 @@ export default class Projects extends React.Component {
 }
 
 class ProjectSelect extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { width: window.innerWidth };
+    }
+
+    componentDidMount() { window.addEventListener('resize', this.handleResize) }
+    componentWillUnmount() {  window.removeEventListener('resize', this.handleResize) }
+    handleResize = () => { this.setState({ width: window.innerWidth }); };
+
     render() {
         return (
             <View style={this.styles.outer}>
-            <View style={this.styles.inner}>
+            <View style={{ minWidth: '300px', width: '50%' }}>
                 <Text style={{color: 'white'}}>
                     <Select
                         placeholder="Filter by subject.."
@@ -231,13 +241,14 @@ class ProjectSelect extends React.Component {
                         theme={theme => ({  ...theme,
                             colors: {
                                 ...theme.colors,
-                                primary: 'black', primary25: AccentColor,
+                                primary: 'black',
+                                primary25: this.state.width < MobileWidth ? 'black' : AccentColor,
                                 neutral0: 'black', neutral10: '#222', neutral80: 'white',
                             },
                         })}
                     />
                 </Text>
-                <Breakline size={120}/>
+                <Breakline size={this.state.width < MobileWidth ? 50 : 120}/>
             </View>
             </View>
         )
@@ -250,9 +261,6 @@ class ProjectSelect extends React.Component {
             alignContent: 'center',
             justifyContent: 'center',
             zIndex: 10,
-        },
-        inner: {
-            width: '50%',
         },
     });
 }
