@@ -38,7 +38,7 @@ export default class HobbyItem extends React.Component {
                     <View style={styles.img}>
                         <img
                             className="hobby-thumbnail"
-                            src={require(`../assets/${this.props.img1.toLowerCase()}`)}
+                            src={require(`../assets/hobbies/${this.props.img1.toLowerCase()}`)}
                             alt="File not found"
                         />
                     </View>
@@ -46,7 +46,7 @@ export default class HobbyItem extends React.Component {
                     <View style={styles.img}>
                         <img
                             className="hobby-thumbnail"
-                            src={require(`../assets/${this.props.img2.toLowerCase()}`)}
+                            src={require(`../assets/hobbies/${this.props.img2.toLowerCase()}`)}
                             alt="File not found"
                         />
                     </View> : <></>}
@@ -79,7 +79,7 @@ const WebButton = (props) => {
                 <Text style={btnStyles.text}>Visit website</Text>
                 <Image
                     style={{width: 30, height: 30}}
-                    source={require('../assets/' + props.img + '.png')}
+                    source={require('../assets/hobbies/' + props.img + '.png')}
                 />
             </View>
         </TouchableOpacity>

@@ -28,7 +28,7 @@ export default class ProjectItem extends React.Component {
                 <View style={styles.img}>
                 <img
                     className="proj-thumbnail"
-                    src={require(`../assets/${this.props.img.toLowerCase()}`)}
+                    src={require(`../assets/projects/${this.props.img.toLowerCase()}`)}
                     alt="File not found"
                 />
                 </View>
@@ -61,7 +61,7 @@ const GitButton = (props) => {
                 <Text style={gitStyles.text}>View on GitHub</Text>
                 <Image
                     style={{width: 25, height: 25}}
-                    source={require('../assets/github.png')}
+                    source={require('../assets/projects/github.png')}
                 />
             </View>
         </TouchableOpacity>
