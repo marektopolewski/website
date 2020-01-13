@@ -37,7 +37,7 @@ export default class HobbyItem extends React.Component {
                 <View>
                     <View style={styles.img}>
                         <img
-                            className="hobby-thumbnail"
+                            className="simple-thumbnail"
                             src={require(`../assets/hobbies/${this.props.img1.toLowerCase()}`)}
                             alt="File not found"
                         />
@@ -45,7 +45,7 @@ export default class HobbyItem extends React.Component {
                     { (this.props.img2 !== undefined) ?
                     <View style={styles.img}>
                         <img
-                            className="hobby-thumbnail"
+                            className="simple-thumbnail"
                             src={require(`../assets/hobbies/${this.props.img2.toLowerCase()}`)}
                             alt="File not found"
                         />

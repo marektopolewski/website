@@ -1,23 +1,18 @@
 import React from 'react';
-import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { NavLink } from 'react-router-dom';
+import { View, StyleSheet } from 'react-native';
 
 import Breakline from './Breakline';
 import Text from './MyText';
-import { AccentColor } from '..';
 
-export default class ProjectItem extends React.Component {
+export default class ExperienceItem extends React.Component {
     render() {
-        var show = this.props.filtered === undefined || this.props.filtered;
-        return ( !show ? <></> :
+        return (
             <>
             <View style={styles.container}>
                 <View style={styles.main}>
                     <View style={styles.header}>
-                        <ProjectTitle val={this.props.title} />
-                        <GitButton 
-                            url={this.props.url}
-                        />
+                        <CompanyAndTitle company={this.props.company} title={this.props.title} />
+                        <Dates from={this.props.from} to={this.props.to} />
                     </View>
                     <Breakline size={20} />
                     <Text style={styles.desc}>
@@ -28,8 +23,8 @@ export default class ProjectItem extends React.Component {
                 </View>
                 <View style={styles.img}>
                 <img
-                    className="shadow-thumbnail"
-                    src={require(`../assets/projects/${this.props.img.toLowerCase()}`)}
+                    className="simple-thumbnail"
+                    src={require(`../assets/experience/${this.props.img.toLowerCase()}`)}
                     alt="File not found"
                 />
                 </View>
@@ -40,32 +35,22 @@ export default class ProjectItem extends React.Component {
     }
 }
 
-const ProjectTitle = (props) => {
+const CompanyAndTitle = (props) => {
     return (
-        <NavLink
-            style={{color:AccentColor, pointerEvents:'none', position:'relative', bottom:-10}}
-            to={``}>
-            <Text style={styles.title}>
-                {props.val}
-            </Text>
-        </NavLink>
+        <View style={{flexDirection: "column"}}>
+            <Text style={styles.company}>{props.company}</Text>
+            <Text style={styles.title}>{props.title}</Text>
+        </View>
     );
 };
 
-const GitButton = (props) => {
+const Dates = (props) => {
+    var from = props.from;
+    var to = props.to !== "" ? props.to : "Present";
     return (
-        <TouchableOpacity
-            onPress={() => {window.open(props.url)}}
-            style={gitStyles.button}
-        >
-            <View style={gitStyles.content}>
-                <Text style={gitStyles.text}>View on GitHub</Text>
-                <Image
-                    style={{width: 25, height: 25}}
-                    source={require('../assets/projects/github.png')}
-                />
-            </View>
-        </TouchableOpacity>
+        <View style={{ minWidth: 'fit-content', marginTop: '1em' }}>
+            <Text style={styles.dates}>{from} - {to}</Text>
+        </View>
     );
 };
 
@@ -100,7 +85,7 @@ const tagStyles = StyleSheet.create({
     text: {
         fontFamily: 'monospace',
         color: '#DDD',
-        fontSize: 12,
+        fontSize: '90%',
     },
     user: {
         color: 'rgb(153, 209, 89)',
@@ -109,32 +94,8 @@ const tagStyles = StyleSheet.create({
         color: 'rgb(120, 150, 180)',
     },
     tags: {
-        fontSize: 14,
+        fontSize: '100%',
     }
-});
-
-const gitStyles = StyleSheet.create({
-    button: {
-        width: 120,
-        height: 35,
-        borderRadius: 5,
-        backgroundColor: '#DDD',
-        shadowColor: '#999',
-        shadowOpacity: 0.6,
-        shadowRadius: 4,
-    },
-    content: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    text: {
-        fontFamily: '"Trebuchet MS", Helvetica, sans-serif',
-        fontSize: 10,
-        color: '#000',
-        marginRight: 5,
-    },
 });
 
 const styles = StyleSheet.create({
@@ -158,8 +119,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 20,
     },
+    company: {
+        fontSize: '150%',
+        letterSpacing: 0.7,
+    },
     title: {
-        fontSize: 20,
+        fontSize: '120%',
+        letterSpacing: 0.7,
+    },
+    dates: {
+        flex: 1,
+        fontSize: '100%',
         letterSpacing: 0.7,
     },
     desc: {
@@ -173,6 +143,7 @@ const styles = StyleSheet.create({
     header: {
         flex: 1,
         flexDirection: 'row',
+        flexWrap: 'wrap',
         maxWidth: 750,
         alignItems: 'center',
         justifyContent: 'space-between',
