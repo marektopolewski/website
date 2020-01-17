@@ -6,6 +6,7 @@ import Header from '../components/MyHeader';
 import Breakline from '../components/Breakline';
 import { Theme, MobileWidth } from '..';
 import HobbyItem from '../components/HobbyItem';
+import WithVideoItem from '../components/WithVideoItem';
 
 export default class Hobbies extends React.Component {
 
@@ -87,6 +88,24 @@ export default class Hobbies extends React.Component {
                     <Breakline size={50}/>
                     Visit the International Floorball Federation website and learn more at: <Link text="www.floorball.sport" href="https://floorball.sport/"/>
                 </HobbyItem>
+
+                <Breakline size={120}/>
+                
+                <WithVideoItem
+                    title="Snowboarding"
+                    img1="snow_1.jpg" img2="snow_2.jpg"
+                >
+                    Despite starting my alpine journey on skis, I always gravited towards snowboarding more. It was not
+                    because of the smoother movement or learning a new set of skills, mainly it was more comfortable
+                    shoes and the ability to do more tricks.<br/>
+                    <Breakline size={30}/>
+                    Snowboarding to me is a great recipe for relaxation and "recharging my batteries". Due to being an extreme
+                    sport, this discipline requires absolute focus and one must stay alert at all times. I find that this allows for me
+                    to keep my mind of work or research related problems and simply enjoy the active time.<br/>
+                    <Breakline size={30}/>
+                    Feel free to take a look at the pictures and videos by clicking
+                    the <Text style={{fontStyle: 'italic'}}>Open gallery </Text>button above.
+                </WithVideoItem>
             </View>
             </>
         );

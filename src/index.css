@@ -338,3 +338,8 @@ img,
 .grecaptcha-badge {
   z-index: 2;
 }
+
+/******************** Override ImageGallery CSS *********************/
+.image-gallery-slide img {
+  height: 50vh;
+}

@@ -130,19 +130,18 @@ const styles = StyleSheet.create({
         marginTop: 40,
     },
     title: {
-        fontSize: 20,
+        fontSize: '130%',
         letterSpacing: 0.7,
     },
     desc: {
         color: '#BBB',
         maxWidth: 750,
         letterSpacing: 0.5,
-        lineHeight: 20,
-        fontSize: 15,
+        lineHeight: "140%",
+        fontSize: "100%",
         textAlign: 'justify',
     },
     header: {
-        flex: 1,
         flexDirection: 'row',
         maxWidth: 750,
         alignItems: 'center',
