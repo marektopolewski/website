@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import BackgroundImage from '../components/Background'
 import Header from '../components/MyHeader';
-import { Theme, MobileWidth } from '..';
+import { Theme, AccentColor, MobileWidth } from '..';
 import Breakline from '../components/Breakline';
 
 export default class EmailPage extends React.Component {
@@ -182,7 +182,7 @@ export default class EmailPage extends React.Component {
                     <Breakline size={10} />
                     <View>
                         <Header style={{textAlign:'center', fontSize:40 }}>
-                        Send<Header style={[Theme.accent, {fontSize:40}]}> e</Header>mail
+                        Send<Header style={{color: AccentColor, fontSize:40}}> e</Header>mail
                         </Header>
                     </View>
                 </View>

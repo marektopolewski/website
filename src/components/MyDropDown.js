@@ -57,7 +57,10 @@ class MyDropDown extends React.Component {
                         { item.iconLarge }
                       </View>
                       <View style={{flex:3, flexDirection:'row'}}>
-                        <Text style={this.dropdownStyles.navText}>{item.to}</Text>
+                        <Text style={this.dropdownStyles.navText}>
+                          <Text style={{color: 'inherit', fontSize: '100%'}}>{item.to.substr(0,1).toUpperCase()}</Text>
+                          <Text style={{color: 'inherit', fontSize: '80%'}}>{item.to.substr(1).toUpperCase()}</Text>
+                        </Text>
                       </View>
                     </View>
                   </NavLink>
@@ -91,7 +94,6 @@ class MyDropDown extends React.Component {
       navText: {
         marginLeft: '10px',
         color: 'inherit',
-        marginTop: '5px',
       },
     });
 }

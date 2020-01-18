@@ -23,11 +23,11 @@ export default class MyNavBar extends React.Component {
   };
 
   navItems = [
-    {to: 'Home', icon:<FaHome/>, iconLarge:<FaHome size="1.5em"/>},
-    {to: "Projects", icon: <FaGithub/>, iconLarge:<FaGithub size="1.5em"/>},
-    {to: "Experience", icon: <FaUserFriends/>, iconLarge:<FaUserFriends size="1.5em"/>},
-    {to: "Hobbies", icon: <FaHotTub/>, iconLarge:<FaHotTub size="1.5em"/>},
-    {to: "Contact", icon: <FaPhoneSquare/>, iconLarge:<FaPhoneSquare size="1.5em"/>},
+    {to: 'Home', icon:<FaHome/>, iconLarge:<FaHome size="1.2em"/>},
+    {to: "Projects", icon: <FaGithub/>, iconLarge:<FaGithub size="1.2em"/>},
+    {to: "Experience", icon: <FaUserFriends/>, iconLarge:<FaUserFriends size="1.2em"/>},
+    {to: "Hobbies", icon: <FaHotTub/>, iconLarge:<FaHotTub size="1.2em"/>},
+    {to: "Contact", icon: <FaPhoneSquare/>, iconLarge:<FaPhoneSquare size="1.2em"/>},
   ];
 
   render () {
@@ -69,7 +69,12 @@ const Item = (props) => {
       >
         <View style={styles.navItem}>
           { props.icon }
-          { props.to !== undefined ? <Text style={styles.navText}>{props.to}</Text> : <></> }
+          { props.to !== undefined ?
+            <Text style={styles.navText}>
+              <Text style={{color: 'inherit', fontSize: '100%'}}>{props.to.substr(0,1).toUpperCase()}</Text>
+              <Text style={{color: 'inherit', fontSize: '80%'}}>{props.to.substr(1).toUpperCase()}</Text>
+            </Text>
+          : <></> }
         </View>
       </NavLink>
     </View>
