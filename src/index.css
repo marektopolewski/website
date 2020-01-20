@@ -54,6 +54,7 @@ body, html {
   display: block;
   max-width: 300px;
   min-width: 165px;
+  min-height: 240px;
   width: 14vw;
   height: auto;
 }

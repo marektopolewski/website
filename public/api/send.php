@@ -40,7 +40,7 @@
                 <tr><td>Email</td><td>' . $email . '</td></tr>
                 <tr><td>Affil</td><td>' . $affil . '</td></tr>
                 <tr><td>Sent</td><td>' . $timestamp . ' (UTC)</td></tr>
-            <table><br/>
+            </table><br/>
             ' . $message . '
             </div>
             <br />
