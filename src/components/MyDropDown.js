@@ -13,20 +13,20 @@ class MyDropDown extends React.Component {
       super(props);
       this.state = {
         dropdownShow: false,
-        dropDownOp: new Animated.Value(0)
+        dropDownOp: new Animated.Value(0),
       };
     }
-  
+
+    delay = 300;
     handleClickOutside() {
-      Animated.timing(this.state.dropDownOp, {toValue:0, duration:300 }).start(
-        this.setState({dropdownShow: false})
+      Animated.timing(this.state.dropDownOp, {toValue:0, duration:this.delay}).start(
+        () => this.setState({dropdownShow: false})
       );
     }
+
     toggleDropdown() {
-      Animated.timing(this.state.dropDownOp, {toValue: this.state.dropdownShow ? 0 : 1 , duration:300 }
-      ).start(
-        this.setState({dropdownShow: !this.state.dropdownShow})
-      );
+      this.setState({dropdownShow: !this.state.dropdownShow});
+      Animated.timing(this.state.dropDownOp, {toValue:this.state.dropdownShow?0:1 , duration:this.delay}).start();
     }
   
     handleClick() {
@@ -45,7 +45,7 @@ class MyDropDown extends React.Component {
           { this.state.dropdownShow ?
             <Animated.View style={[this.dropdownStyles.navList, {opacity: this.state.dropDownOp}]}>
               { this.props.options.map(item => { return(
-                <View key={item.to} style={{ justifyContent:'center', alignItems:'flex-start'}}>
+                <View key={item.to} style={{ minWidth:'50%', justifyContent:'center', alignItems:'center'}}>
                   <NavLink
                     strict exact to={getUrl(item.to)} key={getUrl(item.to)}
                     style={{textDecoration: 'none', color: '#AAA'}} activeStyle={{color: AccentColor}}
@@ -78,7 +78,8 @@ class MyDropDown extends React.Component {
       navList: {
         flex: 1,
         flexDirection: 'row', flexWrap: 'wrap',
-        justifyContent: 'center', alignItems: 'center',
+        justifyContent: 'flex-end', alignItems: 'flex-end',
+        paddingVertical: 20,
         position: 'fixed',
         top: '8%', right: 0,
         backgroundColor: 'rgba(0,0,0,0.9)'
