@@ -134,7 +134,7 @@ class HighGradeTable extends React.Component {
                     </thead>
                     <tbody>
                     { this.data.map((val,key) => { return (
-                        <tr>
+                        <tr key={key}>
                             <td style={{padding:8}}>{val[0]}</td>
                             <td style={{padding:8}}>{val[1]}</td>
                             <td style={{padding:8, textAlign:'center'}}>{val[2]}%</td>

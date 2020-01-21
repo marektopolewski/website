@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import Breakline from './Breakline';
 import Text from './MyText';
+import Hashtags from './Hashtags';
 import { AccentColor } from '..';
 
 export default class ProjectItem extends React.Component {
@@ -68,50 +69,6 @@ const GitButton = (props) => {
         </TouchableOpacity>
     );
 };
-
-const Hashtags = (props) => {
-    if (props.tags === undefined)
-        return (<></>);
-    return (
-        <View style={tagStyles.container}>
-            <Text style={tagStyles.text}>
-                <Text style={[tagStyles.text, tagStyles.user]}>
-                    {"hash@tags:"}
-                </Text>
-                <Text style={[tagStyles.text, tagStyles.tilda]}>
-                    {"~"}
-                </Text>
-                <Text style={[tagStyles.text]}>
-                    {"$"}
-                </Text>
-                <Text style={[tagStyles.text, tagStyles.tags]}>
-                { props.tags.map(tag => {return " " + tag.toString()}) }
-                </Text>
-            </Text>
-        </View>
-    );
-};
-
-const tagStyles = StyleSheet.create({
-    container: {
-        maxWidth: 750,
-        flexDirection: 'row-reverse',
-    },
-    text: {
-        fontFamily: 'monospace',
-        color: '#DDD',
-        fontSize: 12,
-    },
-    user: {
-        color: 'rgb(153, 209, 89)',
-    },
-    tilda: {
-        color: 'rgb(120, 150, 180)',
-    },
-    tags: {
-        fontSize: 14,
-    }
-});
 
 const gitStyles = StyleSheet.create({
     button: {
