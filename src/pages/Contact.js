@@ -66,12 +66,10 @@ export default class Contact extends React.Component {
     onPdfLoadStart = () => {
         this.props.delay(1000);
         this.props.loading(true);
-        console.log("loading...");
     }
     onPdfLoadDone = () => {
         this.props.delay(undefined);
         this.props.loading(false);
-        console.log("..done");
     }
 
     render() {

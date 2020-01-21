@@ -4,6 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import Modal from './MyModal';
 
 import { Document, Page } from 'react-pdf';
+import { MobileWidth } from '..';
 
 export function DownloadPdf(url) {
     const link = document.createElement('a');
@@ -15,8 +16,9 @@ export function DownloadPdf(url) {
 }
 
 export class PdfModal extends React.Component {
-    calcWidth() {
-        return Math.max(window.innerWidth * 0.4, 400);
+    calcWidth(pages) {
+         var baseWidth = window.innerWidth < MobileWidth ? window.innerWidth*0.85 : window.innerWidth*0.8/pages;
+         return Math.min(baseWidth, 800);
     }
 
     render() {
@@ -35,7 +37,7 @@ export class PdfModal extends React.Component {
                                 <Page
                                     key={id}
                                     pageNumber={parseInt(val)}
-                                    width={this.calcWidth()}
+                                    width={this.calcWidth(this.props.pages.length)}
                                     onLoadSuccess={this.props.onPdfLoaded}
                                 />);
                         })}
