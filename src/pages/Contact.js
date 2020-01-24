@@ -159,7 +159,7 @@ const GetInTouch = () => {
     return (
         <View style={{flexDirection: 'column', marginTop: 50}}>
             <Header style={{fontSize: 40}}>
-                Get in touch<Header style={[Theme.accent, styles.dot]}>.</Header>
+                Get in touch<Header style={Theme.accent}>.</Header>
             </Header>
             <Breakline size={40}/>
             <View style={styles.linksContainer}>
@@ -212,9 +212,4 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.4,
         shadowRadius: 5,
     },
-    dot: {
-        fontSize: 50,
-        marginTop: 5,
-        marginLeft: 4,
-    }
 });

@@ -377,7 +377,7 @@ const btnStyle = StyleSheet.create({
     },
     btnText: {
         fontFamily: '"Trebuchet MS", Helvetica, sans-serif',
-        fontSize: 12,
+        fontSize: '80%',
         color: '#000',
         marginRight: 5,
     },

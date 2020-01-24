@@ -46,7 +46,7 @@ export default class BioPage extends React.Component {
                                 imply I was incapable of producing something witty
                                 of my own. 
                             </Text>
-                            <Text style={{position: 'absolute', fontSize:'small', right: 0, bottom: '-30px'}}>~ Unkown Author</Text>
+                            <Text style={{position: 'absolute', fontSize:'80%', right: 0, bottom: '-30px'}}>~ Unkown Author</Text>
                         </View>
                     </View>
 
@@ -143,8 +143,8 @@ const styles = StyleSheet.create({
     },
     secText: {
         fontFamily: '"Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif',
-        fontSize: 17,
-        lineHeight: 22,
+        fontSize: '105%',
+        lineHeight: '140%',
         textAlign: 'justify',
     },
 });

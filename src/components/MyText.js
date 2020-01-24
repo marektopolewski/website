@@ -14,7 +14,7 @@ export default class MyText extends React.Component {
 const styles = StyleSheet.create({
     defaultTextStyle: {
         color: '#FFF',
-        fontSize: 20,
+        fontSize: '120%',
     },
 });
   

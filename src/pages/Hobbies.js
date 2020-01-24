@@ -116,7 +116,7 @@ const LongTerm = () => {
     return (
         <>
         <Header style={{fontSize:'inherit', textAlign:'center'}}>Long-term</Header>
-        <Text style={{marginTop: '10px', fontSize: 'small'}}>
+        <Text style={{marginTop: '10px', fontSize: '85%'}}>
             Team spends months developling their solution to one of the 5 problems which require
             brainstorming, artwork, set and technical design, sketch-writing and more. Their efforts
             must be contained within an 8-minute performance.
@@ -129,7 +129,7 @@ const ShortTerm = () => {
     return (
         <>
         <Header style={{fontSize:'inherit', textAlign:'center'}}>Spontaneuos</Header> 
-        <Text style={{marginTop: '10px', fontSize: 'small'}}>
+        <Text style={{marginTop: '10px', fontSize: '85%'}}>
             As opposed to long-term, those are tasks solved 'at the spot'. The problem is not revealed
             until the team walks into the room and have as little as 5 minutes to prove their skills
             and spontaneous creativity to the judges.

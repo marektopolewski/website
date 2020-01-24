@@ -65,7 +65,7 @@ const LoadingMg = () => {
 const styles = StyleSheet.create({
     msg: {
         color: '#FFF',
-        fontSize: 40,
+        fontSize: '200%',
         paddingTop: 50,
         fontFamily: "Marker Felt, fantasy",
         letterSpacing: 2,

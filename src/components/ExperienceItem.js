@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         maxWidth: 750,
         letterSpacing: 0.5,
         lineHeight: 20,
-        fontSize: 15,
+        fontSize: '90%',
         textAlign: 'justify',
     },
     header: {

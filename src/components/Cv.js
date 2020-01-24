@@ -14,7 +14,7 @@ export const Thumbnail = (props) => {
         <View style={cvStyles.container}>
             <Text style={{textAlign: 'center'}}>
                 {props.title}
-                <Text style={[Theme.accent, {fontSize: 25}]}>.</Text>
+                <Text style={[Theme.accent, {fontSize: '140%'}]}>.</Text>
             </Text>
             <Breakline size={10} />
             <View>
@@ -98,11 +98,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.4,
         shadowRadius: 5,
     },
-    dot: {
-        fontSize: 50,
-        marginTop: 5,
-        marginLeft: 4,
-    }
 });
 
 const cvStyles = StyleSheet.create({
@@ -135,7 +130,7 @@ const cvStyles = StyleSheet.create({
     },
     btnText: {
         fontFamily: '"Trebuchet MS", Helvetica, sans-serif',
-        fontSize: 12,
+        fontSize: '75%',
         color: '#000',
         marginRight: 5,
     },

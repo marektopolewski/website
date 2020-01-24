@@ -104,7 +104,7 @@ const btnStyles = StyleSheet.create({
     },
     text: {
         fontFamily: '"Trebuchet MS", Helvetica, sans-serif',
-        fontSize: 10,
+        fontSize: '70%',
         color: '#000',
         marginRight: 5,
     },
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
         maxWidth: 750,
         letterSpacing: 0.5,
         lineHeight: "140%",
-        fontSize: "100%",
+        fontSize: "90%",
         textAlign: 'justify',
     },
     header: {

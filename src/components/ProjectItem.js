@@ -88,7 +88,7 @@ const gitStyles = StyleSheet.create({
     },
     text: {
         fontFamily: '"Trebuchet MS", Helvetica, sans-serif',
-        fontSize: 10,
+        fontSize: '65%',
         color: '#000',
         marginRight: 5,
     },
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     title: {
-        fontSize: 20,
+        fontSize: '130%',
         letterSpacing: 0.7,
     },
     desc: {
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         maxWidth: 750,
         letterSpacing: 0.5,
         lineHeight: 20,
-        fontSize: 15,
+        fontSize: '90%',
         textAlign: 'justify',
     },
     header: {

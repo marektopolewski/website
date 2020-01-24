@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
   navText: {
     color: 'inherit',
-    fontSize: '16px',
+    fontSize: '100%',
     marginTop: '5px',
   },
   wrapper: {
