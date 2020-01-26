@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { IoIosQuote } from 'react-icons/io';
+import { NavLink } from 'react-router-dom';
+import { animateScroll as scroll } from 'react-scroll';
 
 import Text from './MyText';
 import Header from './MyHeader';
@@ -53,13 +55,16 @@ export default class BioPage extends React.Component {
                     <Breakline size={this.state.width < MobileWidth ? 150 : 200} />
 
                     <View style={[styles.para, {flexWrap: 'wrap-reverse'}]}>
-                        <View style={[styles.paraText, {marginRight: '2vw'}]}>
-                            <Text style={styles.secText}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
-                                et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
-                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa 
-                                qui officia deserunt mollit anim id est laborum
+                        <View style={[
+                            styles.paraText,
+                            {marginRight: '2vw'},
+                            this.state.width < MobileWidth ? {width:'90%'} : {width:'60%'}
+                        ]}>
+                            <Text style={this.state.width < MobileWidth ? styles.secMobText : styles.secText}>
+                            I am a Computer Scientist with a degree from the University of Warwick, currently working as a Software
+                            Engineer at Cisco. I moved from Poland to England in 2016 to develop academically by studying at one of
+                            the top universities in Europe and strengthen as an individual. After graduating, I decided to broaden
+                            my professional experience and find a specialisation I am passionate about for my Master’s degree.
                             </Text>
                         </View>
                         <View style={styles.img}>
@@ -82,12 +87,11 @@ export default class BioPage extends React.Component {
                             />
                         </View>
                         <View style={styles.paraText}>
-                            <Text style={styles.secText}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
-                                et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
-                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa 
-                                qui officia deserunt mollit anim id est laborum
+                            <Text style={this.state.width < MobileWidth ? styles.secMobText : styles.secText}>
+                            This website began as a fun side project to pick up new web development technologies. However, it has
+                            proven to be an entertaining endeavour and allows to me to provide a more comprehensive image than a CV
+                            could. That being said, I encourage you to explore this page and get in touch using
+                            the <ContactLink/> page.
                             </Text>
                         </View>
                     </View>
@@ -95,6 +99,18 @@ export default class BioPage extends React.Component {
             </View>
         );
     };
+}
+
+const ContactLink = () => {
+    return (
+        <NavLink
+            strict exact to={'/contact'} key={'/contact'}
+            style={{color: AccentColor, width: 'fit-content', textDecoration: 'none'}}
+            onClick={ scroll.scrollToTop() }
+        >
+            Contact
+        </NavLink>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -123,7 +139,7 @@ const styles = StyleSheet.create({
         marginTop: -20,
     },
     paraText: {
-        width: '40vw',
+        width: '60%',
         minWidth: 300,
         maxWidth: 900,
         marginTop: 20,
@@ -144,7 +160,14 @@ const styles = StyleSheet.create({
     secText: {
         fontFamily: '"Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif',
         fontSize: '105%',
-        lineHeight: '140%',
+        lineHeight: '160%',
+        letterSpacing: 0.5,
+        textAlign: 'justify',
+    },
+    secMobText: {
+        fontFamily: '"Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif',
+        fontSize: '95%',
+        lineHeight: '150%',
         textAlign: 'justify',
     },
 });

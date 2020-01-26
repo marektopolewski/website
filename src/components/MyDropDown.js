@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from 'react-router-dom';
 import { View, TouchableOpacity, StyleSheet, Animated } from "react-native";
-import { animateScroll as scroll } from 'react-scroll'
+import { animateScroll as scroll } from 'react-scroll';
 import onClickOutside from "react-onclickoutside";
 import { FaBars } from 'react-icons/fa';
 
