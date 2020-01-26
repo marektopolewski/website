@@ -202,13 +202,13 @@ export default class Projects extends React.Component {
                     url="https://github.com/marektopolewski/digital-forensics"
                     filtered={this.state.selected["df"]}
                 >
-                    Mobile robots are expected to move freely within the environment and interpret it which 
-                    significantly increases their potential and efficiency. To navigate safely, they are required 
-                    to recognize landmarks and objects as well as avoid obstacles.<br/>
+                    Digital forensics is the area of Computer Science which uses of scientific methods to collect
+                    probative facts from digital evidences. For example, unique device noise known as Senor Pattern
+                    Noise can be used for source device identification of a potential suspect.<br/>
                     <Breakline size={25}/>
-                    This project provides an implementation of an autonomous mobile robot capable of mapping its
-                    environment comprised of a static grid with random obastacles. It should be able to navigate it 
-                    and find the shortest path between selected points by solely relaying on its sensory data. 
+                    This repository includes my expoloration of only a subset of topics around the subject and focuses
+                    predominantly on image analysis and video analysis. Digital forensics is becoming an increasingly
+                    important aspect of IT due to the rise of fake content, hence, my keen interest in it.
                 </ProjectItem>
                 </Animated.View>
             </View>
