@@ -106,7 +106,7 @@ const ContactLink = () => {
         <NavLink
             strict exact to={'/contact'} key={'/contact'}
             style={{color: AccentColor, width: 'fit-content', textDecoration: 'none'}}
-            onClick={ scroll.scrollToTop() }
+            onClick={ () => scroll.scrollToTop() }
         >
             Contact
         </NavLink>
