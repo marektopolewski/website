@@ -107,18 +107,18 @@ export default class EmailPage extends React.Component {
                 objValid = false;
                 obj.attr('data-tip', 'This field cannot be empty');
             }
-            else if (field === "message") ;
-            else if (!this.state[field].match(/^([a-zA-Z|\W]+)$/i)) {
-                objValid = false;
-                this.setState({ regex: this.setValid(this.state.regex, field, false) });
-                obj.attr('data-tip', 'Only letters are allowed here');
-            }
             else if (field === "email") {
                 if (!this.state.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
                     objValid = false;
                     this.setState({ regex: this.setValid(this.state.regex, field, false) });
                     obj.attr('data-tip', 'Please enter a valid address');
                 }
+            }
+            else if (field === "message") ;
+            else if (!this.state[field].match(/^([a-zA-Z|\W]+)$/i)) {
+                objValid = false;
+                this.setState({ regex: this.setValid(this.state.regex, field, false) });
+                obj.attr('data-tip', 'Only letters are allowed here');
             }
 
             if (!objValid) {
