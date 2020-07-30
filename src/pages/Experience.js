@@ -80,6 +80,15 @@ export default class Projects extends React.Component {
                 <Breakline size={50}/>
 
                 <ExperienceItem
+                    company="Imperial College London" title="MSc Advanced Computing"
+                    from="Oct 2020" to=""
+                    img="imperial.jpg"
+                >
+                    Enrolled for year 2020/2021.<br/><br/>
+                    Expected graduation date: summer 2021.
+                </ExperienceItem>
+
+                <ExperienceItem
                     company="University of Warwick" title="BSc Computer Science"
                     from="Oct 2016" to="Jul 2019"
                     img="warwick.jpg"
