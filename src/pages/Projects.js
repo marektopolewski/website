@@ -210,6 +210,23 @@ export default class Projects extends React.Component {
                     predominantly on image analysis and video analysis. Digital forensics is becoming an increasingly
                     important aspect of IT due to the rise of fake content, hence, my keen interest in it.
                 </ProjectItem>
+                <ProjectItem
+                    title="SMS Sender Microservice"
+                    tags={["Microservices", "Network", "Python"]}
+                    img="sms-service.jpg"
+                    url="https://github.com/marektopolewski/mniam-sms"
+                    filtered={this.state.selected["wb"]}
+                >
+                    A small microservice that allows to fulfil SMS requests from a remote server. The script continually
+                    polls the server via a GET request to fetch a list of text messages to send. Once new entries obtained,
+                    the program propagates each message using a previously established session to the router and the modem
+                    to handle the request. If successfully sent, a POST request is sent to the remote server to notify which
+                    requests can be removed from the queue.<br/>
+                    <Breakline size={25}/>
+                    The main aim of this program is to ensure continuous execution, hence, error handling is of great
+                    importance. Moreover, it had to operate solely locally due to a limited server availablity which is why
+                    a polling mechanism had to be introduced.
+                </ProjectItem>
                 </Animated.View>
             </View>
             </>
