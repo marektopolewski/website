@@ -227,6 +227,21 @@ export default class Projects extends React.Component {
                     importance. Moreover, it had to operate solely locally due to a limited server availablity which is why
                     a polling mechanism had to be introduced.
                 </ProjectItem>
+                <ProjectItem
+                    title="mniam!"
+                    tags={["Angular", "ExpressJS", "NodeJS", "TypeScript"]}
+                    img="angular-mniam.jpg"
+                    url=""
+                    filtered={this.state.selected["wb"]}
+                >
+                    A cross-platform application for placing online restaurant orders. The program comprises of an Angular
+                    front-end and a NodeJS back-end with MS SQL as the database. A single instance of the app handles only
+                    one restaurant's orders, however, it is designed to be easily deployed in a new company.<br/>
+                    <Breakline size={25}/>
+                    The application supports such features as: authentication, basket, multiple concurrent orders, tracking,
+                    SMS verification, integration with on-site restaurant staff's program and more. Unfortunately, the code
+                    is not available due to its continuous development and possible production prospects.
+                </ProjectItem>
                 </Animated.View>
             </View>
             </>

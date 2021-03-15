@@ -54,13 +54,15 @@ const ProjectTitle = (props) => {
 };
 
 const GitButton = (props) => {
+    const onPressFoo = props.url ? () => {window.open(props.url)} : () => {};
+    const buttonText = props.url ? "View on GitHub" : "Repo is private";
     return (
         <TouchableOpacity
-            onPress={() => {window.open(props.url)}}
+            onPress={onPressFoo}
             style={gitStyles.button}
         >
             <View style={gitStyles.content}>
-                <Text style={gitStyles.text}>View on GitHub</Text>
+                <Text style={gitStyles.text}>{buttonText}</Text>
                 <Image
                     style={{width: 25, height: 25}}
                     source={require('../assets/projects/github.png')}
