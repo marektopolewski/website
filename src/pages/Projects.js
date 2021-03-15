@@ -242,6 +242,20 @@ export default class Projects extends React.Component {
                     SMS verification, integration with on-site restaurant staff's program and more. Unfortunately, the code
                     is not available due to its continuous development and possible production prospects.
                 </ProjectItem>
+                <ProjectItem
+                    title="Simple trading server"
+                    tags={["C++", "Networking", "Trading", "FinTech"]}
+                    img="no-preview.jpg"
+                    url="https://github.com/marektopolewski/trading-server"
+                    filtered={this.state.selected["wb"]}
+                >
+                    A simple risk management trading server written in C++. The server supports multiple concurrent clients
+                    that are connected via a TCP socket. No external libraries are utilised.<br/>
+                    <Breakline size={25}/>
+                    The server handles concurrency in a naive fashion, i.e.: the open connections are iterated for new
+                    incoming requrests from clients. The requests are recorded in an OrderStore and for each quote, a response
+                    is sent to the stakeholder regarding the trade safety.
+                </ProjectItem>
                 </Animated.View>
             </View>
             </>
