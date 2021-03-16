@@ -256,6 +256,40 @@ export default class Projects extends React.Component {
                     incoming requrests from clients. The requests are recorded in an OrderStore and for each quote, a response
                     is sent to the stakeholder regarding the trade safety.
                 </ProjectItem>
+                <ProjectItem
+                    title="How Old Is Your Brain?"
+                    tags={["Machine_Learning", "CNN", "Medicine", "Imaging", "Regression"]}
+                    img="brain-age.jpg"
+                    url="https://github.com/marektopolewski/how-old-is-your-brain"
+                    filtered={this.state.selected["ml"]}
+                >
+                    The task is to design an ML model that can accurately predict the age of
+                    a person based on their brain MRI scan. An application of such a network
+                    can be detecting discrepancy between person's age and their brain age which
+                    could be indicative of abnormalities in cognitive aging.<br/>
+                    <Breakline size={25}/>
+                    The developed model is a 3D convolutional neural network (CNN) with a custom
+                    architecture based on the VGG-net implemented in PyTorch. After 30 epochs of
+                    training, the CNN is able to predict the age with an average error of 5.18 years.
+                    The MRI scans and visualisations were supplied by Imeprial College London.
+                </ProjectItem>
+                <ProjectItem
+                    title="Humour Analysis in News Headlines"
+                    tags={["Machine_Learning", "NLP", "Semantic_Analysis", "BERT", "BiLSTM"]}
+                    img="humour-nlp.jpg"
+                    url="https://github.com/marektopolewski/icl-nlp-humour"
+                    filtered={this.state.selected["ml"]}
+                >
+                    The task is to design an ML model that can accurately predict the age of
+                    a person based on their brain MRI scan. An application of such a network
+                    can be detecting discrepancy between person's age and their brain age which
+                    could be indicative of abnormalities in cognitive aging.<br/>
+                    <Breakline size={25}/>
+                    The developed model is a 3D convolutional neural network (CNN) with a custom
+                    architecture based on the VGG-net implemented in PyTorch. After 30 epochs of
+                    training, the CNN is able to predict the age with an average error of 5.18 years.
+                    The MRI scans and visualisations were supplied by Imeprial College London.
+                </ProjectItem>
                 </Animated.View>
             </View>
             </>
