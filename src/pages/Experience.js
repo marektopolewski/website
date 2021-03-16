@@ -84,8 +84,9 @@ export default class Projects extends React.Component {
                     from="Oct 2020" to=""
                     img="imperial.jpg"
                 >
-                    Enrolled for year 2020/2021.<br/><br/>
-                    Expected graduation date: summer 2021.
+                    Enrolled for year 2020/2021.<br/>
+                    Expected graduation date: summer 2021.<br/>
+                    <MasterGradeTable/>
                 </ExperienceItem>
 
                 <ExperienceItem
@@ -111,15 +112,17 @@ export default class Projects extends React.Component {
     }
 }
 
-class HighGradeTable extends React.Component {
+class MasterGradeTable extends React.Component {
     data = [
-        ['Information Technology', 'Extended', '100', '100'],
-        ['English', 'Extended', '96', '98'],
-        ['Physics', 'Extended', '85', '98'],
-        ['Mathematics', 'Extended', '74', '94'],
-        ['Mathematics', 'Standard', '100', '100'],
-        ['English', 'Standard', '100', '100'],
-        ['Polish', 'Standard', '78', '88'],
+        ['70018', 'Privacy Engineering', '1'],
+        ['70022', 'Scalable Systems and Data', '1'],
+        ['70028', 'Reinforcement Learning', '1'],
+        ['70015', 'Mathematics for Machine Learning', '2.1'],
+        ['70043', 'Prolog', '1'],
+        ['70003', 'Advanced Robotics', 'N/A'],
+        ['70010', 'Deep Learning', 'N/A'],
+        ['70014', 'Machine Learning for Imaging', 'N/A'],
+        ['70016', 'Natural Language Processing', 'N/A'],
     ];
     render() {
         return (
@@ -135,10 +138,9 @@ class HighGradeTable extends React.Component {
                 }}>
                     <thead>
                         <tr style={{backgroundColor:"#FFFFFF15", color:'#FFF'}}>
-                            <th>Subject</th>
-                            <th>Level</th>
-                            <th style={{textAlign:'center'}}>Score</th>
-                            <th style={{textAlign:'center'}}>Percentile</th>
+                            <th>Code</th>
+                            <th>Course</th>
+                            <th style={{textAlign:'center'}}>Grade</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -146,8 +148,7 @@ class HighGradeTable extends React.Component {
                         <tr key={key}>
                             <td style={{padding:8}}>{val[0]}</td>
                             <td style={{padding:8}}>{val[1]}</td>
-                            <td style={{padding:8, textAlign:'center'}}>{val[2]}%</td>
-                            <td style={{padding:8, textAlign:'center'}}>{val[3]}.</td>
+                            <td style={{padding:8, textAlign:'center'}}>{val[2]}</td>
                         </tr>
                      )}) }
                     </tbody>
@@ -274,6 +275,52 @@ class UniGradeTable extends React.Component {
                         </View>
                     </TouchableOpacity>
                 </View>
+            </View>
+        );
+    }
+}
+
+class HighGradeTable extends React.Component {
+    data = [
+        ['Information Technology', 'Extended', '100', '100'],
+        ['English', 'Extended', '96', '98'],
+        ['Physics', 'Extended', '85', '98'],
+        ['Mathematics', 'Extended', '74', '94'],
+        ['Mathematics', 'Standard', '100', '100'],
+        ['English', 'Standard', '100', '100'],
+        ['Polish', 'Standard', '78', '88'],
+    ];
+    render() {
+        return (
+            <View style={{width:'100%'}}>
+                <Table striped bordered style={{
+                    backgroundColor: '#FFFFFF08',
+                    fontSize: '80%',
+                    textAlign: 'left',
+                    color: 'inherit',
+                    borderTop: 'white solid',
+                    borderBottom: 'white solid',
+                    marginTop: 10,
+                }}>
+                    <thead>
+                        <tr style={{backgroundColor:"#FFFFFF15", color:'#FFF'}}>
+                            <th>Subject</th>
+                            <th>Level</th>
+                            <th style={{textAlign:'center'}}>Score</th>
+                            <th style={{textAlign:'center'}}>Percentile</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    { this.data.map((val,key) => { return (
+                        <tr key={key}>
+                            <td style={{padding:8}}>{val[0]}</td>
+                            <td style={{padding:8}}>{val[1]}</td>
+                            <td style={{padding:8, textAlign:'center'}}>{val[2]}%</td>
+                            <td style={{padding:8, textAlign:'center'}}>{val[3]}.</td>
+                        </tr>
+                     )}) }
+                    </tbody>
+                </Table>
             </View>
         );
     }
