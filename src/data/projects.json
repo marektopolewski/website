@@ -1,0 +1,147 @@
+[
+    {
+        "key": 1,
+        "title": "React Native with Support for Web",
+        "tags": ["React_Native", "Web", "JS", "CSS"],
+        "imgPath": "react.jpg",
+        "srcUrl": "https://github.com/marektopolewski/website",
+        "category": "Web Development",
+        "content": [
+            "Instead of using a ready template from Wordpress, I decided to take up the challenge and learn React to create my own website from \"scratch\".",
+            "The quotes were added because the beauty of ReactJS is that a variety of modules exist online that provide complex components, which promotes reusability and rapid development. However, due to the use of React Native instead of plain React, many of those components do not function as expected, hence, were substituted using custom objects."
+        ]
+    },
+    {
+        "key": 2,
+        "title": "Trap States in Monte Carlo Tree Search",
+        "tags": ["Artificial Intelligence", "Game_Theory", "Monte_Carlo", "Java", "C++"],
+        "imgPath": "thesis.jpg",
+        "srcUrl": "https://github.com/marektopolewski/Trap-States-MCTS",
+        "category": "Artificial Intelligence",
+        "content": [
+            "The third-year project researched under the supervision of Paolo Turrini for my Bachelor's thesis. The dissertation consists of a final report and an implementation of a C++ Chess engine utilising the developed algorithm.",
+            "The subject of thesis revolves around the Game Theory and agents based on MCTS. Despite algorihtms exceptional performance in games like Go, the problem of  expanding trap states outweights benefits of MCTS in domains such as Chess. The aim of the project is to address this challenge to allow further advancements in the MCTS emerging as an optimal algorithm capable of General Game Playing."
+        ]
+    },
+    {
+        "key": 3,
+        "title": "XOR Problem in Neural Networks",
+        "tags": ["Neural_Network", "MLP", "Python"],
+        "imgPath": "xor.jpg",
+        "srcUrl": "https://github.com/marektopolewski/mlp-xor",
+        "category": "Machine Learning",
+        "content": [
+            "Neural networks are currently one of the fastest-growing areas of computer intelligence. They are also arguably our best attempt to model the human brain thus far. This project attempts to provide a theoretical and empirical analysis of a problem that early neural networks were incapable of overcoming - simulation of the XOR logic gate.",
+            "A common solution to this issue is the multilayer perceptron. This project implements and evaluates this neural network under a variety of parameters to determine their influence over the model’s performance."
+        ]
+    },
+    {
+        "key": 4,
+        "title": "User Interface Evaluation and Design",
+        "tags": ["UX", "Social_Informatics", "Design", "ReactJS"],
+        "imgPath": "eveg.jpg",
+        "srcUrl": "https://github.com/marektopolewski/evegPublicVersion",
+        "category": "Web Development",
+        "content": [
+            "A project aimimg to redesign the exsiting 'eVeg' website according to the user evalutation based on the discovered initial usability issues such as: Equitable Use, Flexibility of Use, Simple/Intuitive Use, Perceptible Information, Tolerance for Error, Low Physical Effort",
+            "In order to eliminate the previously identified problems, a ground-up redesign of the system was performed. The key functionality of eVeg was determined, and a new interface was implemented to match existing features while being aligned with usability guidelines"
+        ]
+    },
+    {
+        "key": 5,
+        "title": "Hadoop & Hive: Text Analytics",
+        "tags": ["Databases", "MapReduce", "Hadoop", "Hive", "Java"],
+        "imgPath": "adb.jpg",
+        "srcUrl": "https://github.com/marektopolewski/hadoop-hive",
+        "category": "Databases",
+        "content": [
+            "Big data is becoming an increasingly important aspect of IT. Handling huge volumes of information requires distributed and parallel systems that ensure integrity and efficiency of queries.",
+            "The implementation of MapReduce over Hadoop takes advantage of the HDFS which enables the distribution of inexpensive program code to the data and not the opposite like in the classical quering frameworks. Higher-level systems such as Apache Hive were created to allow the user to build the desired query without writing lower-level code and follows a SQL-like syntax instead.",
+            "The project implements queries to solve non-trivial problems on large volumes of data using both approaches and measures their performance."
+        ]
+    },
+    {
+        "key": 6,
+        "title": "Fictional Space Probe Data Classification",
+        "tags": ["Machine_Learning", "Sklearn", "Regularisers", "Python"],
+        "imgPath": "plants-animals.jpg",
+        "srcUrl": "https://github.com/marektopolewski/probe-prediction",
+        "category": "Machine Learning",
+        "content": [
+            "The aim of the project is to analyse a finctional dataset generated by two space probes that collected data on extra-terrestrial life forms. Given complete samples gathered by probe A, the task consisted of predicting missing information from probe B. ",
+            "To achieve that, a number of machine learning models has been analysed and tested, the most accurate of which will be discussed in the report along with feature engineering techniques employed."
+        ]
+    },
+    {
+        "key": 7,
+        "title": "Mobile Robotics: Lego NTX",
+        "tags": ["Robotics", "Mapping", "Motion_Planning", "lejOS", "Java"],
+        "imgPath": "lego-ntx.jpg",
+        "srcUrl": "https://github.com/marektopolewski/robotics-lego-ntx",
+        "category": "Artificial Intelligence",
+        "content": [
+            "Mobile robots are expected to move freely within the environment and interpret it which significantly increases their potential and efficiency. To navigate safely, they are required to recognize landmarks and objects as well as avoid obstacles.",
+            "This project provides an implementation of an autonomous mobile robot capable of mapping its environment comprised of a static grid with random obastacles. It should be able to navigate it and find the shortest path between selected points by solely relaying on its sensory data. "
+        ]
+    },
+    {
+        "key": 8,
+        "title": "Image and Video Forensics",
+        "tags": ["Digital_Forensics", "Img_Enhancement", "Vid_Encoding", "Matlab"],
+        "imgPath": "digital-forensics.jpg",
+        "srcUrl": "https://github.com/marektopolewski/digital-forensics",
+        "category": "Digital Forensics",
+        "content": [
+            "Digital forensics is the area of Computer Science which uses of scientific methods to collect probative facts from digital evidences. For example, unique device noise known as Senor Pattern Noise can be used for source device identification of a potential suspect.",
+            "This repository includes my expoloration of only a subset of topics around the subject and focuses predominantly on image analysis and video analysis. Digital forensics is becoming an increasingly important aspect of IT due to the rise of fake content, hence, my keen interest in it."
+        ]
+    },
+    {
+        "key": 9,
+        "title": "SMS Sender Microservice",
+        "tags": ["Microservices", "Network", "Python"],
+        "imgPath": "sms-service.jpg",
+        "srcUrl": "https://github.com/marektopolewski/mniam-sms",
+        "category": "Web Development",
+        "content": [
+            "A small microservice that allows to fulfil SMS requests from a remote server. The script continually polls the server via a GET request to fetch a list of text messages to send. Once new entries obtained, the program propagates each message using a previously established session to the router and the modem to handle the request. If successfully sent, a POST request is sent to the remote server to notify which requests can be removed from the queue.",
+            "The main aim of this program is to ensure continuous execution, hence, error handling is of great importance. Moreover, it had to operate solely locally due to a limited server availablity which is why a polling mechanism had to be introduced."
+        ]
+    },
+    {
+        "key": 10,
+        "title": "Simple trading server",
+        "tags": ["C++", "Networking", "Trading", "FinTech"],
+        "imgPath": "no-preview.jpg",
+        "srcUrl": "https://github.com/marektopolewski/trading-server",
+        "category": "Web Development",
+        "content": [
+            "A simple risk management trading server written in C++. The server supports multiple concurrent clients that are connected via a TCP socket. No external libraries are utilised.",
+            "The server handles concurrency in a naive fashion, i.e.: the open connections are iterated for new incoming requrests from clients. The requests are recorded in an OrderStore and for each quote, a response is sent to the stakeholder regarding the trade safety."
+        ]
+    },
+    {
+        "key": 11,
+        "title": "How Old Is Your Brain?",
+        "tags": ["Machine_Learning", "CNN", "Medicine", "Imaging", "Regression"],
+        "imgPath": "brain-age.jpg",
+        "srcUrl": "https://github.com/marektopolewski/how-old-is-your-brain",
+        "category": "Machine Learning",
+        "content": [
+            "The task is to design an ML model that can accurately predict the age of a person based on their brain MRI scan. An application of such a network can be detecting discrepancy between person's age and their brain age which could be indicative of abnormalities in cognitive aging.",
+            "The developed model is a 3D convolutional neural network (CNN) with a custom architecture based on the VGG-net implemented in PyTorch. After 30 epochs of training, the CNN is able to predict the age with an average error of 5.18 years. The MRI scans and visualisations were supplied by Imeprial College London."
+        ]
+    },
+    {
+        "key": 12,
+        "title": "Humour Analysis in News Headlines",
+        "tags": ["Machine_Learning", "NLP", "Semantic_Analysis", "BERT", "BiLSTM"],
+        "imgPath": "humour-nlp.jpg",
+        "srcUrl": "https://github.com/marektopolewski/icl-nlp-humour",
+        "category": "Machine Learning",
+        "content": [
+            "The task is to design an ML model that can accurately predict the age of a person based on their brain MRI scan. An application of such a network can be detecting discrepancy between person's age and their brain age which could be indicative of abnormalities in cognitive aging.",
+            "The developed model is a 3D convolutional neural network (CNN) with a custom architecture based on the VGG-net implemented in PyTorch. After 30 epochs of training, the CNN is able to predict the age with an average error of 5.18 years. The MRI scans and visualisations were supplied by Imeprial College London."
+        ]
+    }
+]
