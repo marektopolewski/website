@@ -8,13 +8,13 @@ export default class MyHeader extends React.Component {
         super(props);
         this.state = { width: window.innerWidth };
     }
-    
+
     componentDidMount() { window.addEventListener('resize', this.handleResize) }
     componentWillUnmount() { window.removeEventListener('resize', this.handleResize) }
     handleResize = () => { this.setState({ width: window.innerWidth }) }
 
     render() {
-        var fs = this.props.style === undefined || this.props.style.fontSize === undefined 
+        var fs = this.props.style === undefined || this.props.style.fontSize === undefined
                ? 70 : this.props.style.fontSize;
         return (
             <Text className="unselectable" style={[

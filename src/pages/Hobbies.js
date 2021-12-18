@@ -62,7 +62,7 @@ export default class Hobbies extends React.Component {
                 </HobbyItem>
 
                 <Breakline size={120}/>
-                
+
                 <HobbyItem
                     title="Floorball"
                     img1="floorball_1.jpg" img2="warwick_floorball.png"
@@ -90,7 +90,7 @@ export default class Hobbies extends React.Component {
                 </HobbyItem>
 
                 <Breakline size={120}/>
-                
+
                 <WithVideoItem
                     title="Snowboarding"
                     img1="snow_1.jpg" img2="snow_2.jpg"

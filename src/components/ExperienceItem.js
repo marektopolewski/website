@@ -1,11 +1,21 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 
 import Breakline from './Breakline';
 import Text from './MyText';
 import Hashtags from './Hashtags';
 
 export default class ExperienceItem extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { width: window.innerWidth };
+    }
+
+    componentDidMount() { window.addEventListener('resize', this.handleResize) }
+    componentWillUnmount() { window.removeEventListener('resize', this.handleResize) }
+    handleResize = () => { this.setState({ width: window.innerWidth }) }
+
     render() {
         return (
             <>
@@ -23,11 +33,16 @@ export default class ExperienceItem extends React.Component {
                     <Hashtags tags={this.props.tags} />
                 </View>
                 <View style={styles.img}>
-                <img
-                    className="simple-thumbnail"
-                    src={require(`../assets/experience/${this.props.img.toLowerCase()}`)}
-                    alt="File not found"
-                />
+                    <Image
+                        className="simple-thumbnail"
+                        source={require(`../assets/experience/${this.props.img.toLowerCase()}`)}
+                        accessibilityLabel="File not found"
+                        resizeMode="contain"
+                        style={{
+                            width: this.state.width < 240 ? this.state.width * 0.6 : 240,
+                            height: 240
+                        }}
+                    />
                 </View>
             </View>
             <Breakline size={120}/>
@@ -72,7 +87,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     img: {
-        minWidth: '400px',
+        paddingHorizontal: 20,
         alignItems: 'center',
         marginTop: 20,
     },

@@ -8,6 +8,16 @@ import Hashtags from './Hashtags';
 import { AccentColor } from '..';
 
 export default class ProjectItem extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { width: window.innerWidth };
+    }
+
+    componentDidMount() { window.addEventListener('resize', this.handleResize) }
+    componentWillUnmount() { window.removeEventListener('resize', this.handleResize) }
+    handleResize = () => { this.setState({ width: window.innerWidth }) }
+
     render() {
         var show = this.props.filtered === undefined || this.props.filtered;
         return ( !show ? <></> :
@@ -16,7 +26,7 @@ export default class ProjectItem extends React.Component {
                 <View style={styles.main}>
                     <View style={styles.header}>
                         <ProjectTitle val={this.props.title} />
-                        <GitButton 
+                        <GitButton
                             url={this.props.url}
                         />
                     </View>
@@ -28,11 +38,16 @@ export default class ProjectItem extends React.Component {
                     <Hashtags tags={this.props.tags} />
                 </View>
                 <View style={styles.img}>
-                <img
-                    className="shadow-thumbnail"
-                    src={require(`../assets/projects/${this.props.img.toLowerCase()}`)}
-                    alt="File not found"
-                />
+                    <Image
+                        className="simple-thumbnail"
+                        source={require(`../assets/projects/${this.props.img.toLowerCase()}`)}
+                        accessibilityLabel="File not found"
+                        resizeMode="contain"
+                        style={{
+                            width: this.state.width < 240 ? this.state.width * 0.6 : 240,
+                            height: 240
+                        }}
+                    />
                 </View>
             </View>
             <Breakline size={120}/>

@@ -23,7 +23,7 @@ export default class HobbyItem extends React.Component {
                 <View style={[styles.main, {width: this.state.width < MobileWidth ? '95%' : '60%'}]}>
                     <View style={styles.header}>
                         <ProjectTitle val={this.props.title} />
-                        <WebButton 
+                        <WebButton
                             url={this.props.url}
                             img={this.props.urlImg}
                         />
@@ -36,18 +36,28 @@ export default class HobbyItem extends React.Component {
                 </View>
                 <View>
                     <View style={styles.img}>
-                        <img
+                        <Image
                             className="simple-thumbnail"
-                            src={require(`../assets/hobbies/${this.props.img1.toLowerCase()}`)}
-                            alt="File not found"
+                            source={require(`../assets/hobbies/${this.props.img1.toLowerCase()}`)}
+                            accessibilityLabel="File not found"
+                            resizeMode="contain"
+                            style={{
+                                width: this.state.width < 240 ? this.state.width * 0.6 : 240,
+                                height: 240
+                            }}
                         />
                     </View>
                     { (this.props.img2 !== undefined) ?
                     <View style={styles.img}>
-                        <img
+                        <Image
                             className="simple-thumbnail"
-                            src={require(`../assets/hobbies/${this.props.img2.toLowerCase()}`)}
-                            alt="File not found"
+                            source={require(`../assets/hobbies/${this.props.img2.toLowerCase()}`)}
+                            accessibilityLabel="File not found"
+                            resizeMode="contain"
+                            style={{
+                                width: this.state.width < 240 ? this.state.width * 0.6 : 240,
+                                height: 240
+                            }}
                         />
                     </View> : <></>}
                 </View>
@@ -125,7 +135,6 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     img: {
-        minWidth: '400px',
         alignItems: 'center',
         marginTop: 40,
     },
