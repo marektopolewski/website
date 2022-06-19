@@ -86,7 +86,7 @@ export default class Projects extends React.Component {
                 {
                     (this.state.valueFilter === null && this.state.valueSearch === null) || projects.some(p => this.isVisible(p))
                     ?
-                        projects.map(project => { return (
+                        projects.reverse().map(project => { return (
                             <ProjectItem
                                 key={project.key}
                                 title={project.title}
