@@ -3,7 +3,7 @@ Personal online portfolio in a form of a website in React Native with support fo
 
 # To run
 
-<b>Prerequisites:</b> `nodejs`, `npm`, `git` (optional).
+<b>Requirements:</b> `nodejs`, `npm`, `git` (optional).
 
 <b>Steps:</b>
 
@@ -12,6 +12,6 @@ Personal online portfolio in a form of a website in React Native with support fo
 
 1. Open the containing directory in the terminal
 
-2. Install required modules: `npm install`
+2. Install required modules: `npm install --legacy-peer-deps`
 
 3. Deploy on a local dev server: `npm run-script start-web`
